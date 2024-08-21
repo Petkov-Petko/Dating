@@ -11,7 +11,7 @@ const PublicNavBar = () => {
       </div>
       <div>
         <button onClick={()=>navigate("/login")}>Login</button>
-        <button>Sign Up</button>
+        <button onClick={()=>navigate("/register")}>Sign Up</button>
       </div>
     </div>
   );
