@@ -1,8 +1,8 @@
 import './Login.scss';
-import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
-  const navigate = useNavigate();
+
 
   return (
     <div className="form-container">
@@ -15,13 +15,9 @@ const Login = () => {
         </p>
         <button className="form-btn">Log in</button>
       </form>
-      <p  className="sign-up-label">
-        Don't have an account?<span onClick={()=> navigate("/register")} className="sign-up-link">Sign up</span>
-      </p>
+      
       <div className="buttons-container">
-        <div className="apple-login-button">
-          <span>Log in with Apple</span>
-        </div>
+
         <div className="google-login-button">
         <i className="fa-brands fa-google fa-xl"></i>
           <span>Log in with Google</span>
