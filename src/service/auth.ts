@@ -1,5 +1,5 @@
 import {getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser, signInWithPopup, updateProfile } from 'firebase/auth';
-import { auth } from '../config/firebase-config.js';
+import {auth} from '../config/firebase-config';
 
 
 /**
@@ -7,15 +7,16 @@ import { auth } from '../config/firebase-config.js';
  * 
  * @param emailAddress - The email address of the user.
  * @param password - The password of the user.
- * @param displayName - The display name of the user.
+ * @param username - The display name of the user.
  * @returns A promise that resolves to the user credentials.
  */
-export const signUp = async (emailAddress: string, password: string, displayName: string) => {
+export const signUp = async (emailAddress: string, password: string, username: string) => {
     try {
         const userCredentials = await createUserWithEmailAndPassword(auth, emailAddress, password);
+        await signInWithEmailAndPassword(auth, emailAddress, password);
         if (userCredentials.user) {
             await updateProfile(userCredentials.user, {
-                displayName: displayName,
+                displayName: username,
             });
         }
         return userCredentials;
@@ -30,8 +31,8 @@ export const signUp = async (emailAddress: string, password: string, displayName
 /**
  * Handles the deletion of the current user.
  * 
- * @returns {Promise<void>} A promise that resolves when the user is deleted.
- * @throws {Error} If the current user is not found.
+ * @returns  A promise that resolves when the user is deleted.
+ * @throws  If the current user is not found.
  */
 export const handleUserDelete = async () => {
     try {
