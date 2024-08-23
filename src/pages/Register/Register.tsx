@@ -1,10 +1,23 @@
 import "./Register.scss";
 import { useState } from "react";
+import { signUp } from "../../service/auth";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleSignUp = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      await signUp(email, password, name);
+      console.log("User created successfully");
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 
   return (
     <div className="form-container">
@@ -32,7 +45,7 @@ const Register = () => {
           value={password}
         />
 
-        <button className="form-btn">Register</button>
+        <button onClick={(e)=> handleSignUp(e )} className="form-btn">Register</button>
       </form>
 
       <div className="buttons-container">
