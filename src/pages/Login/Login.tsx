@@ -1,9 +1,15 @@
+import { logIn } from "../../service/auth";
 import "./Login.scss";
 import { useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleLogIn = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await logIn(email, password);
+  };
 
   return (
     <div className="form-container">
@@ -26,7 +32,7 @@ const Login = () => {
         <p className="page-link">
           <span className="page-link-label">Forgot Password?</span>
         </p>
-        <button className="form-btn">Log in</button>
+        <button onClick={handleLogIn} className="form-btn">Log in</button>
       </form>
 
       <div className="buttons-container">
