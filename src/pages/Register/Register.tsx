@@ -1,6 +1,7 @@
 import "./Register.scss";
 import { useState } from "react";
-import { signUp } from "../../service/auth";
+import { googleSignIn, signUp } from "../../service/auth";
+import { checkIfUserExists, createUser } from "../../service/db-service";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -9,15 +10,65 @@ const Register = () => {
 
   const handleSignUp = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     try {
-      await signUp(email, password, name);
-      console.log("User created successfully");
-      
+      const [usernameExists, emailExists] =
+        (await checkIfUserExists(name, email)) || [];
+      if (usernameExists && !usernameExists.exists()) {
+        if (emailExists && !emailExists.exists()) {
+          const userCredential = await signUp(email, password, name);
+          const user = userCredential?.user;
+          if (user) {
+            const userDetails = {
+              uid: user.uid,
+              username: name,
+              email: user.email,
+            };
+            await createUser({
+              uid: userDetails.uid,
+              username: userDetails.username,
+              email: userDetails.email || "",
+            });
+            console.log("User created successfully");
+
+          }
+
+        } else {
+          alert("Email already exists");
+        }
+      } else {
+        alert("Username already exists");
+      }
     } catch (error) {
       console.log(error);
-      
     }
-  }
+  };
+
+  const handleGoogleSignIn = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    try {
+      const userDetails = await googleSignIn();
+      if (userDetails?.username && userDetails?.email) {
+        const [usernameSnapshot, emailSnapshot] = await checkIfUserExists(
+          userDetails.username,
+          userDetails.email
+        );
+        const userExists =
+          (usernameSnapshot && usernameSnapshot.exists()) ||
+          (emailSnapshot && emailSnapshot.exists());
+
+        if (!userExists) {
+          await createUser({
+            uid: userDetails.uid,
+            username: userDetails.username,
+            email: userDetails.email,
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="form-container">
@@ -45,13 +96,15 @@ const Register = () => {
           value={password}
         />
 
-        <button onClick={(e)=> handleSignUp(e )} className="form-btn">Register</button>
+        <button onClick={handleSignUp} className="form-btn">
+          Register
+        </button>
       </form>
 
       <div className="buttons-container">
         <div className="google-login-button">
           <i className="fa-brands fa-google fa-xl"></i>
-          <span>Log in with Google</span>
+          <span onClick={handleGoogleSignIn}>Log in with Google</span>
         </div>
       </div>
     </div>
