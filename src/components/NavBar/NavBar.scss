@@ -1,0 +1,11 @@
+.nav_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+  .nav_bar_right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+}
