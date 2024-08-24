@@ -6,6 +6,7 @@ import {
   query,
   equalTo,
   orderByChild,
+  update,
 } from "firebase/database";
 import { userCredentials } from "../types/types";
 
@@ -40,3 +41,34 @@ export const createUser = async (userDetails: userCredentials) => {
       return [null, null];
     }
   };
+
+  export const getUser = async (uid: string) => {
+    try {
+      const userRef = ref(database, `users/${uid}`);
+      const snapshot = await get(userRef);
+      return snapshot.val();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  export const verifyUser = async (uid: string) => {
+    try {
+        const userRef = ref(database, `users/${uid}`);
+        await update(userRef, { verified: true });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getVerifiedStatus = async (uid: string) => {
+  try {
+    const userRef = ref(database, `users/${uid}`);
+    const snapshot = await get(userRef);
+    const userData = snapshot.val();
+    return userData?.verified || false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
