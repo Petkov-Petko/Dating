@@ -1,4 +1,5 @@
-import { logIn } from "../../service/auth";
+import { googleSignIn, logIn } from "../../service/auth";
+import { checkIfUserExists, createUser } from "../../service/db-service";
 import "./Login.scss";
 import { useState } from "react";
 
@@ -9,6 +10,31 @@ const Login = () => {
   const handleLogIn = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await logIn(email, password);
+  };
+  const handleGoogleSignIn = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    try {
+      const userDetails = await googleSignIn();
+      if (userDetails?.username && userDetails?.email) {
+        const [usernameSnapshot, emailSnapshot] = await checkIfUserExists(
+          userDetails.username,
+          userDetails.email
+        );
+        const userExists =
+          (usernameSnapshot && usernameSnapshot.exists()) ||
+          (emailSnapshot && emailSnapshot.exists());
+
+        if (!userExists) {
+          await createUser({
+            uid: userDetails.uid,
+            username: userDetails.username,
+            email: userDetails.email,
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -38,7 +64,7 @@ const Login = () => {
       <div className="buttons-container">
         <div className="google-login-button">
           <i className="fa-brands fa-google fa-xl"></i>
-          <span>Log in with Google</span>
+          <span onClick={handleGoogleSignIn}>Log in with Google</span>
         </div>
       </div>
     </div>
