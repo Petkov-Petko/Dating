@@ -1,5 +1,8 @@
 import "./SetUpForm.scss";
 import React, { useState } from "react";
+import { updateUserDetails } from "../../service/db-service";
+import { RootState } from "../../app/store";
+import { useSelector } from "react-redux";
 
 interface SetUpFormProps {
   onNext: () => void;
@@ -18,6 +21,7 @@ const SetUpForm: React.FC<SetUpFormProps> = ({ onNext }) => {
     title: "",
     description: "",
   });
+  const userId = useSelector((state: RootState) => state.data.user.user?.uid);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -31,10 +35,14 @@ const SetUpForm: React.FC<SetUpFormProps> = ({ onNext }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
-    onNext();
+    try {
+      await updateUserDetails(userId, formData);
+      onNext();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
