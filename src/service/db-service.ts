@@ -8,7 +8,7 @@ import {
   orderByChild,
   update,
 } from "firebase/database";
-import { userCredentials } from "../types/types";
+import { userCredentials, userDetails } from "../types/types";
 
 /**
  * Creates a new user in the database.
@@ -72,3 +72,12 @@ export const getVerifiedStatus = async (uid: string) => {
     return false;
   }
 };
+
+export const updateUserDetails = async (uid: string, details: userDetails) => {
+  try {
+    const userRef = ref(database, `users/${uid}`);
+    await update(userRef, details);
+  } catch (error) {
+    console.log(error);
+  }
+}
