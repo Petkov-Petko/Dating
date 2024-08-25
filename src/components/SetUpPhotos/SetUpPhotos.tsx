@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "../../app/store";
 import { setVerified } from "../../features/userSlice";
 import { verifyUser } from "../../service/db-service";
 import { useRef, useState } from "react";
+import { uploadUserProfilePhoto, uploadFiles } from "../../service/storage";
 
 const SetUpPhotos = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,6 +16,13 @@ const SetUpPhotos = () => {
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
 
   const finish = async () => {
+    //!To add loading component
+    await uploadUserProfilePhoto(userId, profilePhoto!);
+    await Promise.all(
+      photos.map((photo, index) =>
+        uploadFiles(userId!, photo, `photo${index}`)
+      )
+    );
     await verifyUser(userId);
     dispatch(setVerified(true));
   };
@@ -84,7 +92,6 @@ const SetUpPhotos = () => {
           </button>
         </div>
         <div className="set_up_all_photos">
-          {photos.length === 0 && <h1>All Photos</h1>}
           {photos.map((photo, index) => {
             return (
               <div key={index} className="photo_container">
