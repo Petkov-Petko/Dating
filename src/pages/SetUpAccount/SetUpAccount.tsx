@@ -14,8 +14,8 @@ const SetUpAccount: React.FC = () => {
   return (
     <div className="setUp_account">
      
-    {currentStep === 2 && <SetUpForm onNext={handleNext} />}
-      {currentStep === 1 && <SetUpPhotos />}
+    {currentStep === 1 && <SetUpForm onNext={handleNext} />}
+      {currentStep === 2 && <SetUpPhotos />}
     </div>
   );
 };
