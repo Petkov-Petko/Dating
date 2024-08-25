@@ -27,12 +27,13 @@ const SetUpPhotos = () => {
     }
   };
 
-  const handleSetProfilePhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSetProfilePhoto = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const files = event.target.files;
     if (files) {
       setProfilePhoto(files[0]);
     }
-    
   };
 
   const handleInputClick = () => {
@@ -51,26 +52,39 @@ const SetUpPhotos = () => {
     <div className="setUp_photos">
       <h1>Upload Your Photos</h1>
       <div>
-      <input
+        <input
           ref={profilePhotoInput}
           style={{ display: "none" }}
           type="file"
           onChange={handleSetProfilePhoto}
         ></input>
-        <img onClick={handleProfilePhotoClick} className="set_up_profile_photo" src={profilePhoto? URL.createObjectURL(profilePhoto) : assets.userProfile} alt="" />
+        <img
+          onClick={handleProfilePhotoClick}
+          className="set_up_profile_photo"
+          src={
+            profilePhoto
+              ? URL.createObjectURL(profilePhoto)
+              : assets.userProfile
+          }
+          alt=""
+        />
       </div>
       <div>
-        <input
-          ref={fileInput}
-          style={{ display: "none" }}
-          type="file"
-          multiple
-          onChange={addPhotos}
-        ></input>
-        <p onClick={handleInputClick} className="add_photos">
-          Add Photos
-        </p>
+        <div className="add_profile_photos">
+          <input
+            ref={fileInput}
+            style={{ display: "none" }}
+            type="file"
+            multiple
+            onChange={addPhotos}
+          ></input>
+          <p>Profile Photos:</p>
+          <button onClick={handleInputClick} className="add_photos">
+            +
+          </button>
+        </div>
         <div className="set_up_all_photos">
+          {photos.length === 0 && <h1>All Photos</h1>}
           {photos.map((photo, index) => {
             return (
               <div key={index} className="photo_container">
