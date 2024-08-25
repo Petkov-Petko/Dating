@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAuth } from "firebase/auth";
 import { loginUser, setLoading, setVerified } from "./features/userSlice";
 import { AppDispatch, RootState } from "./app/store";
-import { getUser} from "./service/db-service";
+import { getUser } from "./service/db-service";
 import PublicHome from "./pages/PublicHome/PublicHome";
 import SetUpAccount from "./pages/SetUpAccount/SetUpAccount";
 import NavBar from "./components/NavBar/NavBar";
@@ -19,7 +19,6 @@ function App() {
   );
   const dispatch = useDispatch<AppDispatch>();
 
-
   useEffect(() => {
     getAuth().onAuthStateChanged(async (user) => {
       if (user) {
@@ -30,20 +29,20 @@ function App() {
             email: user.email,
           })
         );
-        dispatch(setLoading(false));
 
-        const userDetails = await getUser(user.uid)
+        const userDetails = await getUser(user.uid);
         console.log(userDetails);
-        
+
         if (userDetails.verified) {
           dispatch(setVerified(true));
-        }else{
+        } else {
           dispatch(setVerified(false));
         }
       } else {
         dispatch(setLoading(false));
         console.log("No user is signed in");
       }
+      dispatch(setLoading(false));
     });
   }, []);
 
