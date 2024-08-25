@@ -17,11 +17,18 @@ const SetUpPhotos = () => {
 
   const finish = async () => {
     //!To add loading component
-    await uploadUserProfilePhoto(userId, profilePhoto!);
+    if (!userId) {
+      alert("User ID is undefined");
+      return;
+    }
+    if (!profilePhoto) {
+      alert("Please upload a profile photo");
+      return;
+    }
+
+    await uploadUserProfilePhoto(userId, profilePhoto);
     await Promise.all(
-      photos.map((photo, index) =>
-        uploadFiles(userId!, photo, `photo${index}`)
-      )
+      photos.map((photo, index) => uploadFiles(userId, photo, `photo${index}`))
     );
     await verifyUser(userId);
     dispatch(setVerified(true));

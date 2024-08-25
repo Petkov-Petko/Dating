@@ -37,6 +37,10 @@ const SetUpForm: React.FC<SetUpFormProps> = ({ onNext }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!userId) {
+      console.error('User ID is undefined');
+      return;
+    }
     try {
       await updateUserDetails(userId, formData);
       onNext();
