@@ -15,4 +15,6 @@ export interface userDetails {
     city: string;
     title: string;
     description: string;
+    profilePhoto?: string;
+    photos?: string[];
 }
