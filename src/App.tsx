@@ -10,6 +10,7 @@ import PublicHome from "./pages/PublicHome/PublicHome";
 import SetUpAccount from "./pages/SetUpAccount/SetUpAccount";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home";
+import Loading from "./components/Loading/Loading";
 
 function App() {
   const user = useSelector((state: RootState) => state.data.user.user);
@@ -31,7 +32,6 @@ function App() {
         );
 
         const userDetails = await getUser(user.uid);
-        console.log(userDetails);
 
         if (userDetails.verified) {
           dispatch(setVerified(true));
@@ -49,7 +49,7 @@ function App() {
   return (
     <BrowserRouter>
       {isLoading ? (
-        <h1>Loading...</h1>
+        <Loading/>
       ) : (
         <>
           {user && <NavBar />}
