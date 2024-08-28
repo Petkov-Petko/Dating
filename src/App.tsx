@@ -22,22 +22,29 @@ function App() {
 
   useEffect(() => {
     getAuth().onAuthStateChanged(async (user) => {
+      
       if (user) {
+        const userDetails = await getUser(user.uid);
+        console.log("Authenticated user:", user);
+        console.log("User photoURL:", user.photoURL);
         dispatch(
           loginUser({
             uid: user.uid,
             username: user.displayName,
             email: user.email,
+            profilePhoto: user.photoURL, // Ensure profile photo URL is included
+
           })
         );
 
-        const userDetails = await getUser(user.uid);
 
         if (userDetails.verified) {
           dispatch(setVerified(true));
         } else {
           dispatch(setVerified(false));
         }
+        console.log("updated");
+        
       } else {
         dispatch(setLoading(false));
         console.log("No user is signed in");
