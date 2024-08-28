@@ -7,11 +7,20 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSignUp = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     try {
+      if (!name || !email || !password) {
+        setErrorMessage("Please fill all fields");
+        return;
+      }else if(password.length < 6){
+        setErrorMessage("Password must be at least 6 characters long");
+        return;
+      }
+
       const [usernameExists, emailExists] =
         (await checkIfUserExists(name, email)) || [];
       if (usernameExists && !usernameExists.exists()) {
@@ -30,9 +39,7 @@ const Register = () => {
               email: userDetails.email || "",
             });
             console.log("User created successfully");
-
           }
-
         } else {
           alert("Email already exists");
         }
@@ -73,6 +80,7 @@ const Register = () => {
   return (
     <div className="form-container">
       <p className="title">Create account</p>
+      {errorMessage.length > 0 && (<p className="error_msg">{errorMessage}</p>)}
       <form className="form">
         <input
           onChange={(e) => setName(e.target.value)}
