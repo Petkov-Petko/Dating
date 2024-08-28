@@ -1,17 +1,23 @@
 .nav_bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   .nav_bar_right {
     display: flex;
     align-items: center;
     gap: 15px;
-    
-    img{
-      width: 30px;
-      height: 30px;
+
+    img {
+      width: 65px;
+      height: 65px;
       border-radius: 50%;
+    }
+    button {
+      background-color: #f5f5f5;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
     }
   }
 }

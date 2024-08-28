@@ -7,7 +7,6 @@ import { logoutUser, setVerified } from "../../features/userSlice";
 
 const NavBar = () => {
     const user = useSelector((state: RootState) => state.data.user.user);
-    console.log(user);
     
     const dispatch = useDispatch<AppDispatch>();
     const handleLogOut = () => {
