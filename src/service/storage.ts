@@ -27,11 +27,14 @@ export const uploadFiles = async (
  */
 export const getFiles = async (uid: string): Promise<string[]> => {
   try {
-    const photosRef = ref(storage, `properties/${uid}`);
+    const photosRef = ref(storage, `users/${uid}`);
     const listResult = await listAll(photosRef);
-    const urlPromises = listResult.items.map((itemRef) =>
-      getDownloadURL(itemRef)
-    );
+    const urlPromises = listResult.items
+      .filter(itemRef => itemRef.name !== 'profilePhoto') // Filter out 'profilePhoto'
+      .map(async (itemRef) => {
+        const url = await getDownloadURL(itemRef);
+        return url;
+      });
     const urls = await Promise.all(urlPromises);
     return urls;
   } catch (error) {
