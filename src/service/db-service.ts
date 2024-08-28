@@ -72,11 +72,23 @@ export const getVerifiedStatus = async (uid: string) => {
     return false;
   }
 };
-
-export const updateUserDetails = async (uid: string, details: userDetails) => {
+export const updateUserDetails = async (uid: string, details: Partial<userDetails>) => {
   try {
     const userRef = ref(database, `users/${uid}`);
-    await update(userRef, details);
+    
+    const snapshot = await get(userRef);
+    if (snapshot.exists()) {
+      const existingData = snapshot.val();
+      
+      const updatedData = {
+        ...existingData,
+        ...details
+      };
+      
+      await update(userRef, updatedData);
+    } else {
+      console.log("User does not exist.");
+    }
   } catch (error) {
     console.log(error);
   }
