@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { assets } from "../../assets/assets";
 import "./SetUpPhotos.scss";
 import { AppDispatch, RootState } from "../../app/store";
-import { setVerified } from "../../features/userSlice";
+import { loginUser, setVerified } from "../../features/userSlice";
 import { verifyUser, updateUserDetails } from "../../service/db-service";
 import { useRef, useState } from "react";
 import {
@@ -12,6 +12,7 @@ import {
   getUserProfilePhoto,
 } from "../../service/storage";
 import Loading from "../Loading/Loading";
+import { getAuth, updateProfile } from "firebase/auth";
 
 const SetUpPhotos = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,8 +47,26 @@ const SetUpPhotos = () => {
       photos: photosUrls,
       profilePhoto: profilePhotoUrl,
     });
+
     await verifyUser(userId);
     dispatch(setVerified(true));
+
+    
+    getAuth().onAuthStateChanged(async(user) => {
+      if (user) {
+        await updateProfile(user, {
+          photoURL: profilePhotoUrl,
+        });
+        dispatch(
+          loginUser({
+            uid: user.uid,
+            username: user.displayName,
+            email: user.email,
+            profilePhoto: profilePhotoUrl,
+          })
+        );
+      }
+    });
     setLoading(false);
   };
 
