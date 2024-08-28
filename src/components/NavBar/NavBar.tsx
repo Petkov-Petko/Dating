@@ -7,6 +7,8 @@ import { logoutUser, setVerified } from "../../features/userSlice";
 
 const NavBar = () => {
     const user = useSelector((state: RootState) => state.data.user.user);
+    console.log(user);
+    
     const dispatch = useDispatch<AppDispatch>();
     const handleLogOut = () => {
         dispatch(logoutUser());
@@ -20,7 +22,7 @@ const NavBar = () => {
         <img src="https://via.placeholder.com/90" alt="" />
       </div>
       <div className="nav_bar_right">
-        <img src="https://via.placeholder.com/50" alt="" />
+        <img src={user?.profilePhoto} alt="" />
         <p>{user?.username}</p>
         <button onClick={handleLogOut}>Log out</button>
       </div>
