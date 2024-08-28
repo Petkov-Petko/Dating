@@ -3,9 +3,15 @@ import { assets } from "../../assets/assets";
 import "./SetUpPhotos.scss";
 import { AppDispatch, RootState } from "../../app/store";
 import { setVerified } from "../../features/userSlice";
-import { verifyUser } from "../../service/db-service";
+import { verifyUser, updateUserDetails } from "../../service/db-service";
 import { useRef, useState } from "react";
-import { uploadUserProfilePhoto, uploadFiles } from "../../service/storage";
+import {
+  uploadUserProfilePhoto,
+  uploadFiles,
+  getFiles,
+  getUserProfilePhoto,
+} from "../../service/storage";
+import Loading from "../Loading/Loading";
 
 const SetUpPhotos = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,9 +20,11 @@ const SetUpPhotos = () => {
   const profilePhotoInput = useRef<HTMLInputElement>(null);
   const [photos, setPhotos] = useState<File[]>([]);
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const finish = async () => {
-    //!To add loading component
+    setLoading(true);
+
     if (!userId) {
       alert("User ID is undefined");
       return;
@@ -30,8 +38,17 @@ const SetUpPhotos = () => {
     await Promise.all(
       photos.map((photo, index) => uploadFiles(userId, photo, `photo${index}`))
     );
+
+    const photosUrls = await getFiles(userId);
+    const profilePhotoUrl = await getUserProfilePhoto(userId);
+
+    await updateUserDetails(userId, {
+      photos: photosUrls,
+      profilePhoto: profilePhotoUrl,
+    });
     await verifyUser(userId);
     dispatch(setVerified(true));
+    setLoading(false);
   };
 
   const addPhotos = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +82,8 @@ const SetUpPhotos = () => {
 
   return (
     <div className="setUp_photos">
+      {loading && <Loading />}
+
       <h1>Upload Your Photos</h1>
       <div>
         <input
