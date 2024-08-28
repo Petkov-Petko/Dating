@@ -4,7 +4,8 @@ interface UserState {
     user: {
         uid: string;
         email: string;
-        name: string;
+        username: string;
+        profilePhoto: string;
     } | null;
     isLoading: boolean;
     verified: boolean;
