@@ -25,14 +25,12 @@ function App() {
       
       if (user) {
         const userDetails = await getUser(user.uid);
-        console.log("Authenticated user:", user);
-        console.log("User photoURL:", user.photoURL);
         dispatch(
           loginUser({
             uid: user.uid,
             username: user.displayName,
             email: user.email,
-            profilePhoto: user.photoURL, // Ensure profile photo URL is included
+            profilePhoto: user.photoURL, 
 
           })
         );
@@ -43,7 +41,6 @@ function App() {
         } else {
           dispatch(setVerified(false));
         }
-        console.log("updated");
         
       } else {
         dispatch(setLoading(false));
