@@ -93,3 +93,13 @@ export const updateUserDetails = async (uid: string, details: Partial<userDetail
     console.log(error);
   }
 }
+
+export const getUsers = async () => {
+  try {
+    const usersRef = ref(database, "users");
+    const snapshot = await get(usersRef);
+    return snapshot.val();
+  } catch (error) {
+    console.log(error);
+  }
+};
