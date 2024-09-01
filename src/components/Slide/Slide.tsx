@@ -65,6 +65,7 @@ const Slide = () => {
     <div className="slide_container">
       <div className="slide">
         <img src={userToShowPhotos[photoIndex]} alt="user photos" />
+        <div className="blur"></div>
         <div className="photo_arrows">
           <i onClick={prevPhoto} className="fa-solid fa-chevron-left fa-lg"></i>
           <i
@@ -75,17 +76,18 @@ const Slide = () => {
         <div className="slide_content">
           <div className="slide_top">
             <h1>{userToShow?.firstName}</h1>
-            <p>{calculateAge(userToShow?.birthDate ?? "")}</p>
+            <p >{calculateAge(userToShow?.birthDate ?? "")}</p>
           </div>
           <div className="slide_middle">
             <p>Lives in: {userToShow?.city}</p>
           </div>
           <div className="slide_bottom">
+            <p className="slide_bottom_bio">Bio:</p>
             <p>{userToShow?.title}</p>
           </div>
           <div className="slide_buttons">
-            <button>x</button>
-            <button>like</button>
+            <button className="button_left"><i className="fa-solid fa-xmark fa-lg"></i></button>
+            <button className="button_right"><i className="fa-solid fa-heart fa-lg "></i></button>
           </div>
         </div>
       </div>

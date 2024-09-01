@@ -7,6 +7,7 @@
   margin: 0 auto;
   .slide {
     color: white;
+    font-family: "Courier New", Courier, monospace;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -16,13 +17,23 @@
     background-color: rgb(143, 141, 141);
     margin: 0 auto;
     border-radius: 15px;
-    .blur{
+    .blur {
       position: absolute;
       bottom: 0;
+      border-radius: 15px;
       width: 100%;
       height: 200px;
-      background: rgb(0,0,0);
-background: linear-gradient(0deg, rgba(0,0,0,1) 54%, rgba(0,0,0,0.7344187675070029) 71%, rgba(0,0,0,0.5355392156862745) 81%, rgba(0,0,0,0.40948879551820727) 86%, rgba(0,0,0,0.23021708683473385) 91%, rgba(0,0,0,0.048144257703081283) 96%, rgba(0,0,0,0) 100%);
+      background: rgb(0, 0, 0);
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 1) 54%,
+        rgba(0, 0, 0, 0.7344187675070029) 71%,
+        rgba(0, 0, 0, 0.5355392156862745) 81%,
+        rgba(0, 0, 0, 0.40948879551820727) 86%,
+        rgba(0, 0, 0, 0.23021708683473385) 91%,
+        rgba(0, 0, 0, 0.048144257703081283) 96%,
+        rgba(0, 0, 0, 0) 100%
+      );
     }
     img {
       width: 400px;
@@ -41,10 +52,10 @@ background: linear-gradient(0deg, rgba(0,0,0,1) 54%, rgba(0,0,0,0.73441876750700
         color: white;
         cursor: pointer;
       }
-    } 
+    }
     .slide_content {
       position: absolute;
-      top: 85%;
+      top: 80%;
       left: 50%;
       transform: translate(-50%, -50%);
       max-width: 380px;
@@ -58,7 +69,7 @@ background: linear-gradient(0deg, rgba(0,0,0,1) 54%, rgba(0,0,0,0.73441876750700
         gap: 15px;
         align-items: center;
         height: 20px;
-        p{
+        p {
           font-size: 25px;
           font-weight: 600;
         }
@@ -66,7 +77,7 @@ background: linear-gradient(0deg, rgba(0,0,0,1) 54%, rgba(0,0,0,0.73441876750700
 
       .slide_middle {
         height: 20px;
-        p{
+        p {
           font-size: 21px;
           font-weight: 400;
         }
@@ -78,16 +89,48 @@ background: linear-gradient(0deg, rgba(0,0,0,1) 54%, rgba(0,0,0,0.73441876750700
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        .slide_bottom_bio {
+          margin-top: 15px;
+        }
       }
       .slide_buttons {
         display: flex;
-        gap: 15px;
+        gap: 50px;
         margin-top: 10px;
+        align-items: center;
+        justify-content: center;
+        margin-right: 17px;
+        .button_left {
+          background-color: rgb(57, 57, 57);
+          .fa-xmark{
+            color: white;
+          }
+          &:hover {
+            background-color: rgb(194, 22, 22);
+            .fa-xmark{
+              scale: 1.2;
+            }
+          }
+        }
+        .button_right {
+          .fa-heart{
+            color: white;
+          }
+          background-color: rgb(206, 82, 37);
+          &:hover {
+            background-color: rgb(223, 137, 32);
+            .fa-heart{
+              scale: 1.2;
+            }
+          }
+        }
+
         button {
-          background-color: #f5f5f5;
+          width: 140px;
+          border-radius: 15px;
+          height: 40px;
           border: none;
-          padding: 10px 20px;
-          cursor: pointer;
         }
       }
     }
