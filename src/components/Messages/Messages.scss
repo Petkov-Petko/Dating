@@ -1,0 +1,21 @@
+.messages_container {
+  background-color: rgba(250, 250, 250, 0.637);
+  border-radius: 15px;
+  padding: 5px;
+
+  .all_messages {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+
+    .single_message {
+      img {
+        float: left;
+        margin-right: 11px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
