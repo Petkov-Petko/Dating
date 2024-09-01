@@ -11,13 +11,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 390px;
-    height: 630px;
+    width: 400px;
+    height: 640px;
     background-color: rgb(143, 141, 141);
     margin: 0 auto;
+    border-radius: 15px;
+    .blur{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 200px;
+      background: rgb(0,0,0);
+background: linear-gradient(0deg, rgba(0,0,0,1) 54%, rgba(0,0,0,0.7344187675070029) 71%, rgba(0,0,0,0.5355392156862745) 81%, rgba(0,0,0,0.40948879551820727) 86%, rgba(0,0,0,0.23021708683473385) 91%, rgba(0,0,0,0.048144257703081283) 96%, rgba(0,0,0,0) 100%);
+    }
     img {
-      width: 390px;
-      height: 520px;
+      width: 400px;
+      height: 530px;
+      border-radius: 15px;
     }
 
     .photo_arrows {
@@ -48,11 +58,18 @@
         gap: 15px;
         align-items: center;
         height: 20px;
+        p{
+          font-size: 25px;
+          font-weight: 600;
+        }
       }
 
       .slide_middle {
         height: 20px;
-        margin-top: 10px;
+        p{
+          font-size: 21px;
+          font-weight: 400;
+        }
       }
       .slide_bottom {
         margin-top: 10px;
