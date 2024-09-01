@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from "../../app/store";
 import { getAuth, signOut } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { logoutUser, setVerified } from "../../features/userSlice";
+import { assets } from "../../assets/assets";
 
 const NavBar = () => {
     const user = useSelector((state: RootState) => state.data.user.user);
@@ -18,7 +19,7 @@ const NavBar = () => {
   return (
     <div className="nav_bar">
       <div>
-        <img src="https://via.placeholder.com/90" alt="" />
+        <img className="logo" src={assets.logo} alt="" />
       </div>
       <div className="nav_bar_right">
         <img src={user?.profilePhoto} alt="" />
