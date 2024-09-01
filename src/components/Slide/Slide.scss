@@ -55,7 +55,7 @@
     }
     .slide_content {
       position: absolute;
-      top: 80%;
+      top: 83%;
       left: 50%;
       transform: translate(-50%, -50%);
       max-width: 380px;
@@ -77,13 +77,13 @@
 
       .slide_middle {
         height: 20px;
+        margin-top: 15px;
         p {
           font-size: 21px;
           font-weight: 400;
         }
       }
       .slide_bottom {
-        margin-top: 10px;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
@@ -92,6 +92,8 @@
 
         .slide_bottom_bio {
           margin-top: 15px;
+          opacity: 0.6;
+          padding-bottom: 5px;
         }
       }
       .slide_buttons {

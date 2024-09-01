@@ -82,7 +82,7 @@ const Slide = () => {
             <p>Lives in: {userToShow?.city}</p>
           </div>
           <div className="slide_bottom">
-            <p className="slide_bottom_bio">Bio:</p>
+            <p className="slide_bottom_bio">BIO</p>
             <p>{userToShow?.title}</p>
           </div>
           <div className="slide_buttons">
