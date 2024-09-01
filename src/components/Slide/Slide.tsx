@@ -13,6 +13,7 @@ const Slide = () => {
   const [userToShow, setUserToShow] = useState<userDetails | null>();
   const [userToShowPhotos, setUserToShowPhotos] = useState<string[]>([]);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [age, setAge] = useState(0);
 
   const nextPhoto = () => {
     if (photoIndex < userToShowPhotos.length - 1) {
@@ -53,6 +54,7 @@ const Slide = () => {
             usersToShow[Math.floor(Math.random() * usersToShow.length)];
           setUserToShow(randomUser);
           setUserToShowPhotos(randomUser.photos ?? []);
+          setAge(calculateAge(randomUser.birthDate ?? ""));
         }
       }
     };
@@ -76,7 +78,7 @@ const Slide = () => {
         <div className="slide_content">
           <div className="slide_top">
             <h1>{userToShow?.firstName}</h1>
-            <p >{calculateAge(userToShow?.birthDate ?? "")}</p>
+            <p >{age}</p>
           </div>
           <div className="slide_middle">
             <p>Lives in: {userToShow?.city}</p>
