@@ -12,22 +12,22 @@ const Slide = () => {
   const [usersToShow, setUsersToShow] = useState<userDetails[]>([]);
   const [userToShow, setUserToShow] = useState<userDetails | null>();
   const [userToShowPhotos, setUserToShowPhotos] = useState<string[]>([]);
-//   const [photoIndex, setPhotoIndex] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState(0);
 
-//   const nextPhoto = () => {
-//     if (photoIndex < userToShowPhotos.length - 1) {
-//       setPhotoIndex(photoIndex + 1);
-//     } else {
-//       setPhotoIndex(0);
-//     }
-//   };
-//   const prevPhoto = () => {
-//     if (photoIndex > 0) {
-//       setPhotoIndex(photoIndex - 1);
-//     } else {
-//       setPhotoIndex(userToShowPhotos.length - 1);
-//     }
-//   };
+  const nextPhoto = () => {
+    if (photoIndex < userToShowPhotos.length - 1) {
+      setPhotoIndex(photoIndex + 1);
+    } else {
+      setPhotoIndex(0);
+    }
+  };
+  const prevPhoto = () => {
+    if (photoIndex > 0) {
+      setPhotoIndex(photoIndex - 1);
+    } else {
+      setPhotoIndex(userToShowPhotos.length - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,7 +64,14 @@ const Slide = () => {
   return (
     <div className="slide_container">
       <div className="slide">
-        <img src={userToShowPhotos[0]} alt="user photos" />
+        <img src={userToShowPhotos[photoIndex]} alt="user photos" />
+        <div className="photo_arrows">
+          <i onClick={prevPhoto} className="fa-solid fa-chevron-left fa-lg"></i>
+          <i
+            onClick={nextPhoto}
+            className="fa-solid fa-chevron-right fa-lg"
+          ></i>
+        </div>
         <div className="slide_content">
           <div className="slide_top">
             <h1>{userToShow?.firstName}</h1>
