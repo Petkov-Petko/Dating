@@ -11,6 +11,7 @@ import { RootState } from "../../app/store";
 import { userDetails } from "../../types/types";
 import { calculateAge } from "../../service/utils";
 import Loading from "../Loading/Loading";
+import PhotoIndicator from "../PhotoIndicator/PhotoIndicator";
 
 const Slide = () => {
   const userId = useSelector((state: RootState) => state.data.user.user?.uid);
@@ -127,6 +128,8 @@ const Slide = () => {
   return (
     <div className="slide_container">
       <div className="slide">
+      <PhotoIndicator totalPhotos={userToShowPhotos.length} currentIndex={photoIndex} /> {/* Add PhotoIndicator */}
+
         {loading ? (
           <Loading />
         ) : (
