@@ -17,48 +17,48 @@ import { userCredentials, userDetails } from "../types/types";
  * @returns A Promise that resolves to the result of the database operation.
  */
 export const createUser = async (userDetails: userCredentials) => {
-    try {
-      const userRef = ref(database, `users/${userDetails.uid}`);
-      await set(userRef, userDetails);
-      return userDetails;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  try {
+    const userRef = ref(database, `users/${userDetails.uid}`);
+    await set(userRef, userDetails);
+    return userDetails;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  export const checkIfUserExists = async (username: string, email: string) => {
-    try {
-      const snapshot1 = await get(
-        query(ref(database, "users"), orderByChild("username"), equalTo(username))
-      );
-      const snapshot2 = await get(
-        query(ref(database, "users"), orderByChild("email"), equalTo(email))
-      );
-  
-      return [snapshot1, snapshot2];
-    } catch (error) {
-      console.log(error);
-      return [null, null];
-    }
-  };
+export const checkIfUserExists = async (username: string, email: string) => {
+  try {
+    const snapshot1 = await get(
+      query(ref(database, "users"), orderByChild("username"), equalTo(username))
+    );
+    const snapshot2 = await get(
+      query(ref(database, "users"), orderByChild("email"), equalTo(email))
+    );
 
-  export const getUser = async (uid: string) => {
-    try {
-      const userRef = ref(database, `users/${uid}`);
-      const snapshot = await get(userRef);
-      return snapshot.val();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    return [snapshot1, snapshot2];
+  } catch (error) {
+    console.log(error);
+    return [null, null];
+  }
+};
 
-  export const verifyUser = async (uid: string) => {
-    try {
-        const userRef = ref(database, `users/${uid}`);
-        await update(userRef, { verified: true });
-    } catch (error) {
-        console.log(error);
-    }
+export const getUser = async (uid: string) => {
+  try {
+    const userRef = ref(database, `users/${uid}`);
+    const snapshot = await get(userRef);
+    return snapshot.val();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const verifyUser = async (uid: string) => {
+  try {
+    const userRef = ref(database, `users/${uid}`);
+    await update(userRef, { verified: true });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getVerifiedStatus = async (uid: string) => {
@@ -72,19 +72,22 @@ export const getVerifiedStatus = async (uid: string) => {
     return false;
   }
 };
-export const updateUserDetails = async (uid: string, details: Partial<userDetails>) => {
+export const updateUserDetails = async (
+  uid: string,
+  details: Partial<userDetails>
+) => {
   try {
     const userRef = ref(database, `users/${uid}`);
-    
+
     const snapshot = await get(userRef);
     if (snapshot.exists()) {
       const existingData = snapshot.val();
-      
+
       const updatedData = {
         ...existingData,
-        ...details
+        ...details,
       };
-      
+
       await update(userRef, updatedData);
     } else {
       console.log("User does not exist.");
@@ -92,7 +95,7 @@ export const updateUserDetails = async (uid: string, details: Partial<userDetail
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const getUsers = async () => {
   try {
@@ -101,5 +104,53 @@ export const getUsers = async () => {
     return snapshot.val();
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const likeOrDislike = async (
+  userId: string,
+  otherUserId: string,
+  liked: boolean
+) => {
+  try {
+    const userRef = ref(database, `users/${userId}/likes`);
+    await update(userRef, { [otherUserId]: liked });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getLikedUsers = async (userId: string) => {
+  try {
+    const userRef = ref(database, `users/${userId}/likes`);
+    const snapshot = await get(userRef);
+    const likes = snapshot.val();
+
+    if (!likes) {
+      return [];
+    }
+
+    const likedUsers = Object.keys(likes).filter((key) => likes[key] === true);
+    return likedUsers;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getLikedAndDislikedUsers = async (userId: string) => {
+  try {
+    const userRef = ref(database, `users/${userId}/likes`);
+    const snapshot = await get(userRef);
+    const users = snapshot.val();
+
+    if (!users) {
+      return [];
+    }
+
+    return Object.keys(users);
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 };
