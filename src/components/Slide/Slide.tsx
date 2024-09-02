@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { userDetails } from "../../types/types";
 import { calculateAge } from "../../service/utils";
+import Loading from "../Loading/Loading";
 
 const Slide = () => {
   const userId = useSelector((state: RootState) => state.data.user.user?.uid);
@@ -18,8 +19,11 @@ const Slide = () => {
   const [userToShowPhotos, setUserToShowPhotos] = useState<string[]>([]);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [age, setAge] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const nextPhoto = () => {
+    setLoading(true);
+
     if (photoIndex < userToShowPhotos.length - 1) {
       setPhotoIndex(photoIndex + 1);
     } else {
@@ -27,6 +31,8 @@ const Slide = () => {
     }
   };
   const prevPhoto = () => {
+    setLoading(true);
+
     if (photoIndex > 0) {
       setPhotoIndex(photoIndex - 1);
     } else {
@@ -34,7 +40,11 @@ const Slide = () => {
     }
   };
 
-  const likeOrSkip = async (userId: string, otherUserId: string, state:boolean) => {
+  const likeOrSkip = async (
+    userId: string,
+    otherUserId: string,
+    state: boolean
+  ) => {
     await likeOrDislike(userId, otherUserId, state);
 
     const updatedUsersToShow = usersToShow.filter(
@@ -58,8 +68,6 @@ const Slide = () => {
       setAge(0);
     }
   };
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,6 +112,10 @@ const Slide = () => {
     fetchData();
   }, [userId]);
 
+  useEffect(() => {
+    setLoading(false);
+  }, [photoIndex]);
+
   if (!userToShow) {
     return (
       <div className="noMoreUsers">
@@ -115,7 +127,15 @@ const Slide = () => {
   return (
     <div className="slide_container">
       <div className="slide">
-        <img src={userToShowPhotos[photoIndex]} alt="user photos" />
+        {loading ? (
+          <Loading />
+        ) : (
+          <img
+            src={userToShowPhotos[photoIndex]}
+            alt={userToShow.firstName}
+            onLoad={() => setLoading(false)}
+          />
+        )}
         <div className="blur"></div>
         <div className="photo_arrows">
           <i onClick={prevPhoto} className="fa-solid fa-chevron-left fa-lg"></i>
