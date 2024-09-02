@@ -1,6 +1,11 @@
 import "./Slide.scss";
 import { useState, useEffect } from "react";
-import { getUser, getUsers } from "../../service/db-service";
+import {
+  getUser,
+  getUsers,
+  likeOrDislike,
+  getLikedAndDislikedUsers,
+} from "../../service/db-service";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { userDetails } from "../../types/types";
@@ -8,7 +13,6 @@ import { calculateAge } from "../../service/utils";
 
 const Slide = () => {
   const userId = useSelector((state: RootState) => state.data.user.user?.uid);
-  const [user, setUser] = useState<userDetails | null>();
   const [usersToShow, setUsersToShow] = useState<userDetails[]>([]);
   const [userToShow, setUserToShow] = useState<userDetails | null>();
   const [userToShowPhotos, setUserToShowPhotos] = useState<string[]>([]);
@@ -30,17 +34,54 @@ const Slide = () => {
     }
   };
 
+  const likeOrSkip = async (userId: string, otherUserId: string, state:boolean) => {
+    await likeOrDislike(userId, otherUserId, state);
+
+    const updatedUsersToShow = usersToShow.filter(
+      (user) => user.uid !== otherUserId
+    );
+    setUsersToShow(updatedUsersToShow);
+
+    if (updatedUsersToShow.length > 0) {
+      const nextRandomUser =
+        updatedUsersToShow[
+          Math.floor(Math.random() * updatedUsersToShow.length)
+        ];
+      setUserToShow(nextRandomUser);
+      setUserToShowPhotos(nextRandomUser.photos || []);
+      setAge(
+        nextRandomUser.birthDate ? calculateAge(nextRandomUser.birthDate) : 0
+      );
+    } else {
+      setUserToShow(null);
+      setUserToShowPhotos([]);
+      setAge(0);
+    }
+  };
+
+
+
   useEffect(() => {
     const fetchData = async () => {
       if (userId) {
         const user = await getUser(userId);
-        setUser(user);
 
         const usersAll = await getUsers();
         const users: userDetails[] = Object.values(usersAll);
 
-        const maleUsers = users.filter((user) => user.gender === "male");
-        const femaleUsers = users.filter((user) => user.gender === "female");
+        const likedUsers = await getLikedAndDislikedUsers(userId);
+
+        const filteredUsers = users.filter(
+          (user) => !likedUsers.includes(user.uid)
+        );
+
+        const maleUsers = filteredUsers.filter(
+          (user) => user.gender === "male"
+        );
+
+        const femaleUsers = filteredUsers.filter(
+          (user) => user.gender === "female"
+        );
 
         if (user.gender === "male") {
           setUsersToShow(femaleUsers);
@@ -53,6 +94,7 @@ const Slide = () => {
           const randomUser =
             usersToShow[Math.floor(Math.random() * usersToShow.length)];
           setUserToShow(randomUser);
+
           setUserToShowPhotos(randomUser.photos ?? []);
           setAge(calculateAge(randomUser.birthDate ?? ""));
         }
@@ -62,7 +104,14 @@ const Slide = () => {
     fetchData();
   }, [userId]);
 
-  
+  if (!userToShow) {
+    return (
+      <div className="noMoreUsers">
+        <h1>No users to show</h1>
+      </div>
+    );
+  }
+
   return (
     <div className="slide_container">
       <div className="slide">
@@ -78,7 +127,7 @@ const Slide = () => {
         <div className="slide_content">
           <div className="slide_top">
             <h1>{userToShow?.firstName}</h1>
-            <p >{age}</p>
+            <p>{age}</p>
           </div>
           <div className="slide_middle">
             <p>Lives in: {userToShow?.city}</p>
@@ -88,8 +137,18 @@ const Slide = () => {
             <p>{userToShow?.title}</p>
           </div>
           <div className="slide_buttons">
-            <button className="button_left"><i className="fa-solid fa-xmark fa-lg"></i></button>
-            <button className="button_right"><i className="fa-solid fa-heart fa-lg "></i></button>
+            <button
+              onClick={() => likeOrSkip(userId ?? "", userToShow.uid, false)}
+              className="button_left"
+            >
+              <i className="fa-solid fa-xmark fa-lg"></i>
+            </button>
+            <button
+              onClick={() => likeOrSkip(userId ?? "", userToShow.uid, true)}
+              className="button_right"
+            >
+              <i className="fa-solid fa-heart fa-lg "></i>
+            </button>
           </div>
         </div>
       </div>
