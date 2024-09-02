@@ -26,8 +26,8 @@ const SideBar = () => {
           <span>Likes</span>
           <span>Matches</span>
         </label>
+        <div>{filter === "likes" ? <Likes /> : <Matches />}</div>
       </div>
-      <div>{filter === "likes" ? <Likes /> : <Matches />}</div>
     </div>
   );
 };
