@@ -1,0 +1,20 @@
+.like_container {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  .like {
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      float: left;
+      margin-right: 7px;
+    }
+    p{
+        opacity: 0.5;
+        margin-top: 7px;
+        font-size: 17px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+  }
+}
