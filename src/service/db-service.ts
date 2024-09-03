@@ -120,25 +120,8 @@ export const likeUser = async (
   }
 };
 
-export const getLikedUsers = async (userId: string) => {
-  try {
-    const userRef = ref(database, `users/${userId}/likes`);
-    const snapshot = await get(userRef);
-    const likes = snapshot.val();
 
-    if (!likes) {
-      return [];
-    }
-
-    const likedUsers = Object.keys(likes).filter((key) => likes[key] === true);
-    return likedUsers;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
-
-export const getLikedAndDislikedUsers = async (userId: string) => {
+export const getLikesIds = async (userId: string) => {
   try {
     const userRef = ref(database, `users/${userId}/likes`);
     const snapshot = await get(userRef);
