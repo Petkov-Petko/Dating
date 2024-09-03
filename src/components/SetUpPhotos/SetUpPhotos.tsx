@@ -51,8 +51,7 @@ const SetUpPhotos = () => {
     await verifyUser(userId);
     dispatch(setVerified(true));
 
-    
-    getAuth().onAuthStateChanged(async(user) => {
+    getAuth().onAuthStateChanged(async (user) => {
       if (user) {
         await updateProfile(user, {
           photoURL: profilePhotoUrl,
@@ -131,10 +130,12 @@ const SetUpPhotos = () => {
             multiple
             onChange={addPhotos}
           ></input>
-          <p>Profile Photos:</p>
-          <button onClick={handleInputClick} className="add_photos">
-            +
-          </button>
+          <div className="add_photos_button_div">
+            <p>Profile Photos:</p>
+            <button onClick={handleInputClick} className="add_photos">
+              <i className="fa-solid fa-plus fa-xl"></i>
+            </button>
+          </div>
         </div>
         <div className="set_up_all_photos">
           {photos.map((photo, index) => {
@@ -152,7 +153,7 @@ const SetUpPhotos = () => {
           })}
         </div>
       </div>
-      <button onClick={finish}>Finish</button>
+      <button className="finish_set_up_button" onClick={finish}>Finish</button>
     </div>
   );
 };

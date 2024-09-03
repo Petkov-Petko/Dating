@@ -38,7 +38,7 @@ const SetUpForm: React.FC<SetUpFormProps> = ({ onNext }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!userId) {
-      console.error('User ID is undefined');
+      console.error("User ID is undefined");
       return;
     }
     try {
@@ -53,8 +53,7 @@ const SetUpForm: React.FC<SetUpFormProps> = ({ onNext }) => {
     <div className="container">
       <div>
         <h1>
-          Welcome to WAE <br />
-          Set Up Your Account
+          Welcome to <span className="logo_text">Flirty</span>
         </h1>
         <p>Fill in the information below to set up your account.</p>
       </div>
