@@ -22,6 +22,6 @@ export interface userDetails {
   profilePhoto?: string;
   photos?: string[];
   likes?: {
-    [key: string]: boolean;
+    [key: string]: string;
   };
 }
