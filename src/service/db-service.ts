@@ -107,14 +107,14 @@ export const getUsers = async () => {
   }
 };
 
-export const likeOrDislike = async (
+export const likeUser = async (
   userId: string,
   otherUserId: string,
-  liked: boolean
+  date: string
 ) => {
   try {
     const userRef = ref(database, `users/${userId}/likes`);
-    await update(userRef, { [otherUserId]: liked });
+    await update(userRef, { [otherUserId]: date });
   } catch (error) {
     console.log(error);
   }
