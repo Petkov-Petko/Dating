@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import {
   getUser,
   getUsers,
-  likeOrDislike,
+  likeUser,
   getLikedAndDislikedUsers,
 } from "../../service/db-service";
 import { useSelector } from "react-redux";
@@ -46,7 +46,10 @@ const Slide = () => {
     otherUserId: string,
     state: boolean
   ) => {
-    await likeOrDislike(userId, otherUserId, state);
+    if (state) {
+      const date = new Date().toISOString();
+      await likeUser(userId, otherUserId, date);
+    }
 
     const updatedUsersToShow = usersToShow.filter(
       (user) => user.uid !== otherUserId
@@ -92,13 +95,9 @@ const Slide = () => {
           (user) => user.gender === "female"
         );
 
-        if (user.gender === "male") {
-          setUsersToShow(femaleUsers);
-        } else {
-          setUsersToShow(maleUsers);
-        }
-
         const usersToShow = user.gender === "male" ? femaleUsers : maleUsers;
+        setUsersToShow(usersToShow);
+
         if (usersToShow.length > 0) {
           const randomUser =
             usersToShow[Math.floor(Math.random() * usersToShow.length)];
@@ -120,7 +119,7 @@ const Slide = () => {
   if (!userToShow) {
     return (
       <div className="noMoreUsers">
-        <h1>No users to show</h1>
+        <h1>No more users to show.</h1>
       </div>
     );
   }
@@ -128,8 +127,10 @@ const Slide = () => {
   return (
     <div className="slide_container">
       <div className="slide">
-      <PhotoIndicator totalPhotos={userToShowPhotos.length} currentIndex={photoIndex} /> {/* Add PhotoIndicator */}
-
+        <PhotoIndicator
+          totalPhotos={userToShowPhotos.length}
+          currentIndex={photoIndex}
+        />
         {loading ? (
           <Loading />
         ) : (
