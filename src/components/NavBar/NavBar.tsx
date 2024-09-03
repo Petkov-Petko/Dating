@@ -22,7 +22,7 @@ const NavBar = () => {
         <img className="logo" src={assets.logo} alt="" />
       </div>
       <div className="nav_bar_right">
-        <img src={user?.profilePhoto} alt="" />
+        <img src={user?.profilePhoto ? user?.profilePhoto : assets.userProfile} alt="" />
         <p>{user?.username}</p>
         <button onClick={handleLogOut}>Log out</button>
       </div>
