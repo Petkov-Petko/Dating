@@ -29,7 +29,6 @@ const Likes = () => {
           })
       );
 
-      console.log(likes);
       setLikes(likes);
     };
     fetchLikes();
