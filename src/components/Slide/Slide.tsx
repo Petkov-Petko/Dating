@@ -4,7 +4,7 @@ import {
   getUser,
   getUsers,
   likeUser,
-  getLikedAndDislikedUsers,
+  getLikesIds,
 } from "../../service/db-service";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
@@ -81,7 +81,7 @@ const Slide = () => {
         const usersAll = await getUsers();
         const users: userDetails[] = Object.values(usersAll);
 
-        const likedUsers = await getLikedAndDislikedUsers(userId);
+        const likedUsers = await getLikesIds(userId);
 
         const filteredUsers = users.filter(
           (user) => !likedUsers.includes(user.uid)
