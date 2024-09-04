@@ -1,6 +1,6 @@
 import Likes from "../Likes/Likes";
 import Matches from "../Matches/Matches";
-import Messages from "../Messages/Messages";
+import UserMessages from "../UserMessages/UserMessages";
 import "./SideBar.scss";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ const SideBar = () => {
 
   return (
     <div className="side_bar">
-      <Messages />
+      <UserMessages />
       <div className="side_bar_bottom">
         <p>Likes & Matches</p>
         <label htmlFor="filter" className="switch" aria-label="Toggle Filter">
