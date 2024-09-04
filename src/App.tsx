@@ -11,6 +11,7 @@ import SetUpAccount from "./pages/SetUpAccount/SetUpAccount";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home";
 import Loading from "./components/Loading/Loading";
+import Chat from "./pages/Messages/Messages";
 
 function App() {
   const user = useSelector((state: RootState) => state.data.user.user);
@@ -22,7 +23,6 @@ function App() {
 
   useEffect(() => {
     getAuth().onAuthStateChanged(async (user) => {
-      
       if (user) {
         const userDetails = await getUser(user.uid);
         dispatch(
@@ -30,18 +30,15 @@ function App() {
             uid: user.uid,
             username: user.displayName,
             email: user.email,
-            profilePhoto: user.photoURL, 
-
+            profilePhoto: user.photoURL,
           })
         );
-
 
         if (userDetails.verified) {
           dispatch(setVerified(true));
         } else {
           dispatch(setVerified(false));
         }
-        
       } else {
         dispatch(setLoading(false));
         console.log("No user is signed in");
@@ -53,7 +50,7 @@ function App() {
   return (
     <BrowserRouter>
       {isLoading ? (
-        <Loading/>
+        <Loading />
       ) : (
         <>
           {user && <NavBar />}
@@ -62,6 +59,12 @@ function App() {
               path="/"
               element={
                 !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Home />
+              }
+            />
+            <Route
+              path="/messages"
+              element={
+                !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Chat />
               }
             />
           </Routes>
