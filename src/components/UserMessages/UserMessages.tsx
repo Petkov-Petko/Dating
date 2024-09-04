@@ -1,6 +1,6 @@
-import "./Messages.scss";
+import "./UserMessages.scss";
 
-const Messages = () => {
+const UserMessages = () => {
   return (
     <div className="messages_container">
       <h1>Messages</h1>
@@ -15,4 +15,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default UserMessages;
