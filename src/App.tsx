@@ -69,7 +69,7 @@ function App() {
               }
             />
               <Route
-              path="/profile"
+              path="/profile/:id"
               element={
                 !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Profile />
               }
