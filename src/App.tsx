@@ -12,6 +12,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home";
 import Loading from "./components/Loading/Loading";
 import Chat from "./pages/Messages/Messages";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   const user = useSelector((state: RootState) => state.data.user.user);
@@ -65,6 +66,12 @@ function App() {
               path="/messages"
               element={
                 !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Chat />
+              }
+            />
+              <Route
+              path="/profile"
+              element={
+                !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Profile />
               }
             />
           </Routes>
