@@ -3,9 +3,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 10px;
+  background-color: whitesmoke;
   
-  .logo{
+  .logo {
     width: 130px;
+    cursor: pointer;
   }
 
   .nav_bar_right {
@@ -17,12 +19,17 @@
       width: 65px;
       height: 65px;
       border-radius: 50%;
+      cursor: pointer;
     }
+
     button {
       background-color: #f5f5f5;
       border: none;
       padding: 10px 20px;
+      border-radius: 15px;
       cursor: pointer;
+      color: rgb(254, 50, 49);
+      font-weight: 600;
     }
   }
 }

@@ -5,10 +5,11 @@ import { getAuth, signOut } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { logoutUser, setVerified } from "../../features/userSlice";
 import { assets } from "../../assets/assets";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
     const user = useSelector((state: RootState) => state.data.user.user);
-    
+    const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
     const handleLogOut = () => {
         dispatch(logoutUser());
@@ -19,10 +20,10 @@ const NavBar = () => {
   return (
     <div className="nav_bar">
       <div>
-        <img className="logo" src={assets.logo} alt="" />
+        <img onClick={()=>navigate("/")} className="logo" src={assets.logo} alt="" />
       </div>
       <div className="nav_bar_right">
-        <img src={user?.profilePhoto ? user?.profilePhoto : assets.userProfile} alt="" />
+        <img onClick={()=> navigate("/profile")} src={user?.profilePhoto ? user?.profilePhoto : assets.userProfile} alt="" />
         <p>{user?.username}</p>
         <button onClick={handleLogOut}>Log out</button>
       </div>
