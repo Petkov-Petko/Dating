@@ -2,12 +2,16 @@
   background-color: rgba(250, 250, 250, 0.637);
   border-radius: 15px;
   padding: 5px;
-
+  h1 {
+    font-size: 20px;
+    padding: 3px 11px;
+  }
   .all_messages {
     display: flex;
     flex-direction: column;
     gap: 11px;
     min-height: 250px;
+    margin-top: 5px;
 
     .single_message {
       img {
@@ -16,6 +20,14 @@
         width: 60px;
         height: 60px;
         border-radius: 50%;
+      }
+      h4{
+        font-family: 'Courier New', Courier, monospace;
+      }
+      p{
+        padding-top: 5px;
+        font-family: 'Courier New', Courier, monospace;
+        opacity: 0.8;
       }
     }
   }
