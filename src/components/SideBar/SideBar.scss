@@ -1,23 +1,25 @@
 .side_bar {
-  background-color: rgb(71, 71, 71);
   width: 300px;
   padding: 5px 5px;
   display: flex;
   flex-direction: column;
   gap: 30px;
   height: 100vh;
-
   .side_bar_bottom {
     background-color: rgba(250, 250, 250, 0.637);
     border-radius: 15px;
     padding: 5px;
     height: 100%;
+    h1 {
+      font-size: 20px;
+      padding: 3px 11px;
+    }
 
     .switch {
-      --_switch-bg-clr: #70a9c5;
+      --_switch-bg-clr: #4c373b;
       --_switch-padding: 4px; /* padding around button*/
-      --_slider-bg-clr: rgba(12, 74, 110, 0.65); /* slider color unchecked */
-      --_slider-bg-clr-on: rgba(12, 74, 110, 1); /* slider color checked */
+      --_slider-bg-clr: rgba(101, 15, 32, 0.65); /* slider color unchecked */
+      --_slider-bg-clr-on: rgb(254, 50, 49); /* slider color checked */
       --_slider-txt-clr: #ffffff;
       --_label-padding: 1rem 2rem; /* padding around the labels -  this gives the switch it's global width and height */
       --_switch-easing: cubic-bezier(
@@ -81,7 +83,7 @@
       inset: 0;
       z-index: -2;
     }
-  
+
     .switch:has(input:checked)::before {
       background-color: var(--_slider-bg-clr-on);
       inset: var(--_switch-padding) var(--_switch-padding)

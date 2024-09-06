@@ -15,7 +15,7 @@ const SideBar = () => {
     <div className="side_bar">
       <UserMessages />
       <div className="side_bar_bottom">
-        <p>Likes & Matches</p>
+        <h1>Likes & Matches</h1>
         <label htmlFor="filter" className="switch" aria-label="Toggle Filter">
           <input
             type="checkbox"
