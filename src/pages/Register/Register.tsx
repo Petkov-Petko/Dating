@@ -110,9 +110,9 @@ const Register = () => {
       </form>
 
       <div className="buttons-container">
-        <div className="google-login-button">
+        <div onClick={handleGoogleSignIn} className="google-login-button">
           <i className="fa-brands fa-google fa-xl"></i>
-          <span onClick={handleGoogleSignIn}>Log in with Google</span>
+          <span>Log in with Google</span>
         </div>
       </div>
     </div>
