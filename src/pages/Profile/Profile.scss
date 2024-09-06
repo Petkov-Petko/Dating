@@ -18,6 +18,26 @@
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
     }
+    .edit_profile{
+        position: absolute;
+        top: 10%;
+        left: 85%;
+        
+        button{
+            border-radius: 15px;
+            background-color: #dbd9d9;
+            padding: 5px;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 7px;
+            i{
+                padding-right: 3px;
+            }
+            &:hover{
+                background-color: #918f8f;
+            }
+        }
+    }
 
     .profile_profile_photo {
       position: absolute;

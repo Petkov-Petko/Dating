@@ -5,10 +5,14 @@ import { userDetails } from "../../types/types";
 import { useParams } from "react-router-dom";
 import { calculateAge } from "../../service/utils";
 import { assets } from "../../assets/assets";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 const Profile = () => {
   const { id = "" } = useParams<{ id: string }>();
   const [user, setUser] = useState<userDetails | null>(null);
   const [age, setAge] = useState<number>(0);
+  const uid = useSelector((state: RootState) => state.data.user.user?.uid);
+  const [editMode, setEditMode] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,12 +31,23 @@ const Profile = () => {
         <div className="profile_profile_photo">
           <img src={user?.profilePhoto} alt="" />
         </div>
+        <div className="edit_profile">
+          <button onClick={()=> setEditMode(!editMode)}>
+            <i className="fa-solid fa-user-pen fa-lg"></i>
+            {editMode ? "Cancel" : "Edit profile"}
+          </button>
+          {editMode && (
+            <button >
+              <i className="fa-solid fa-save fa-lg"></i>
+              Save
+            </button>
+          )}
+        </div>
       </div>
       <div className="profile_details">
         <h3>
-          {user?.firstName} {user?.lastName}, <span className="age">{age}</span> 
+          {user?.firstName} {user?.lastName}, <span className="age">{age}</span>
           <img src={assets.verifiedLogo} alt="" />
-
         </h3>
         <p className="profile_details_title">{user?.title}</p>
         <div className="profile_details_flex">
@@ -44,12 +59,19 @@ const Profile = () => {
             {user?.city}, {user?.country}
           </p>
           <p>
-            <i style={user?.gender === "male" ? {color: "royalblue"} : {color: "rgb(255, 49, 49)"}} className="fa-solid fa-venus-mars fa-lg"></i>
+            <i
+              style={
+                user?.gender === "male"
+                  ? { color: "royalblue" }
+                  : { color: "rgb(255, 49, 49)" }
+              }
+              className="fa-solid fa-venus-mars fa-lg"
+            ></i>
             {user?.gender}
           </p>
         </div>
         <p>{user?.description}</p>
-        <button> Like user</button>
+        {uid !== id && <button> Like user</button>}
       </div>
       <div className="profile_photos_container">
         <div className="profile_photos_filter">
