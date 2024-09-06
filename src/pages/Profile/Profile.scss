@@ -1,71 +1,138 @@
-.profile{
+.profile {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border-radius: 15px;
+  background-color: rgba(228, 224, 224, 0.345);
+  align-items: center;
+  width: 700px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  .profile_header {
+    width: 100%;
+    position: relative;
+    img {
+      width: 100%;
+      height: 200px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .profile_profile_photo {
+      position: absolute;
+      top: 90%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 2px solid white;
+      }
+    }
+  }
+  .profile_details {
+    padding: 0px 15px;
+    margin-top: 70px;
     display: flex;
     flex-direction: column;
-    margin: 0 auto; 
-    margin-bottom: 30px;
-    margin-top: 30px;
-    border-radius: 15px;
-    background-color: rgba(228, 224, 224, 0.345);
     align-items: center;
-    width: 700px;
-    .profile_header{
+    gap: 7px;
+
+    .profile_details_title{
+        opacity: 0.7;
+    }
+
+    .age {
+      color: rgb(255, 49, 49);
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    }
+    .profile_details_flex {
+      display: flex;
+      gap: 15px;
+
+      i{
+        padding-right: 5px;
+      }
+      p{
+        padding: 11px;
+        border: 2px solid rgba(86, 86, 86, 0.591);
+        border-radius: 11px;
+      }
+    }
+    button {
+      padding: 1.3em 3em;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      font-weight: 500;
+      color: #000;
+      background-color: #ffffff9a;
+      border: none;
+      border-radius: 45px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease 0s;
+      cursor: pointer;
+      outline: none;
+      margin: 11px 0px;
+    }
+
+    button:hover {
+      background-color: rgb(255,47,49);
+      box-shadow: 0px 15px 20px rgba(255, 47, 50, 0.53);
+      color: #fff;
+      transform: translateY(-7px);
+    }
+
+    button:active {
+      transform: translateY(-1px);
+    }
+  }
+  .profile_photos_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 7px;
+
+    .hr{
         width: 100%;
-        position: relative;
-        img{
-            width: 100%;
-            height: 200px;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
-
-        .profile_profile_photo{
-            position: absolute;
-            top: 90%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            
-
-            img{
-                width: 150px;
-                height: 150px;
-                border-radius: 50%;
-                border: 2px solid white;    
-            }
-        }
+        height: 2px;
+        background-color: rgba(107, 107, 107, 0.678);
+        margin-top: 10px;
     }
-    .profile_details{
-        padding: 0px 15px;  
-        margin-top: 70px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 7px;
+    .profile_photos_filter {
+      display: flex;
+      gap: 15px;
+      cursor: pointer;
+        p{
+            transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease;
 
-        .profile_details_flex{
-            display: flex;
-            gap: 15px;
-        }
-    }
-    .profile_photos_container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .profile_photos_filter{
-            display: flex;
-            gap: 15px;
-        }
-        .profile_photos{
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            max-height: 850px;
-            overflow-y: auto;
-            margin-top: 7px;
-            img{
-                width: 300px;
-                height: 400px;
+            &:hover{
                 border-radius: 15px;
-                margin: 10px;
-            }
+                color: rgb(58, 58, 58);
+              }
         }
+      .photos_length_span{
+        background-color: rgb(107, 107, 107);
+        padding: 6px 10px;
+        border-radius: 50%;
+        color: white;
+      }
     }
-}   
+    .profile_photos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      max-height: 850px;
+      overflow-y: auto;
+      margin-top: 7px;
+      img {
+        width: 300px;
+        height: 400px;
+        border-radius: 15px;
+        margin: 10px;
+      }
+    }
+  }
+}
