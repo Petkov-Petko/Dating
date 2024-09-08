@@ -101,7 +101,7 @@ const Profile = () => {
           <img src={profilePhoto ?? ""} alt="" />
           {editMode && (
             <>
-              <button onClick={handleProfilePhotoClick}>Change Photo</button>
+              <button className="profile_change_profile_btn" onClick={handleProfilePhotoClick}>Change Photo</button>
               <input
                 type="file"
                 style={{ display: "none" }}

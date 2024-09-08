@@ -51,6 +51,17 @@
         border-radius: 50%;
         border: 2px solid white;
       }
+      .profile_change_profile_btn{
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        transform: translate(-50%, -50%);
+        background-color: whitesmoke;
+        padding: 5px;
+        cursor: pointer;
+        border: none;
+        border-radius: 15px;
+      }
     }
   }
   .profile_details {
