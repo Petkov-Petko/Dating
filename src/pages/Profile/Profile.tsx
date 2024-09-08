@@ -49,7 +49,9 @@ const Profile = () => {
     }
   };
 
-  const handleProfileFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfileFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const newProfilePhoto = URL.createObjectURL(file);
@@ -67,6 +69,8 @@ const Profile = () => {
       setNewPhotos((prevPhotos) => [...prevPhotos, ...Array.from(files)]);
     }
   };
+
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -99,15 +103,15 @@ const Profile = () => {
           setProfilePhoto(url);
         }
       }
-      if(allPhotos.length > (user.photos ?? []).length){
+      if (allPhotos.length > (user.photos ?? []).length) {
         await Promise.all(
           newPhotos.map((photo, index) => {
-            uploadFiles(id, photo, `photo${index + user.photos.length}`)
-          } 
-          )
+            const i = index + user.photos.length;
+            uploadFiles(id, photo, `photo${i}`);
+          })
         );
-        const photosUrls = await getFiles(id) ;
-        await updateUserDetails(id, {photos: photosUrls});
+        const photosUrls = await getFiles(id);
+        await updateUserDetails(id, { photos: photosUrls });
         setAllPhotos(photosUrls);
       }
       const updatedUser = {
@@ -126,9 +130,9 @@ const Profile = () => {
   return (
     <div className="profile">
       <div className="profile_header">
-        <img src={user?.photos[2]} alt="" />
+        <img src={user?.photos[2]} alt="cover photo" />
         <div className="profile_profile_photo">
-          <img src={profilePhoto ?? ""} alt="" />
+          <img src={profilePhoto ?? ""} alt="profile photo" />
           {editMode && (
             <>
               <button
@@ -147,13 +151,15 @@ const Profile = () => {
           )}
         </div>
         <div className="edit_profile">
-          <button onClick={() => {
-            if(!editMode){
-              setProfilePhoto(user?.profilePhoto ?? "")
-              setAllPhotos(user?.photos ?? [])
-            }
-            setEditMode(!editMode)
-            }}>
+          <button
+            onClick={() => {
+              if (!editMode) {
+                setProfilePhoto(user?.profilePhoto ?? "");
+                setAllPhotos(user?.photos ?? []);
+              }
+              setEditMode(!editMode);
+            }}
+          >
             <i className="fa-solid fa-user-pen fa-lg"></i>
             {editMode ? "Cancel" : "Edit profile"}
           </button>
@@ -190,7 +196,7 @@ const Profile = () => {
             </>
           )}
           , <span className="age">{age}</span>
-          <img src={assets.verifiedLogo} alt="" />
+          <img src={assets.verifiedLogo} alt="logo for verified users" />
         </h3>
         <p className="profile_details_title">
           {editMode ? (
@@ -281,7 +287,9 @@ const Profile = () => {
           </p>
           <p>Videos</p>
         </div>
-        {editMode && <button onClick={handleAllPhotosClick}>Add more photos</button>}
+        {editMode && (
+          <button onClick={handleAllPhotosClick}>Add more photos</button>
+        )}
         <input
           type="file"
           multiple
@@ -291,9 +299,14 @@ const Profile = () => {
         />
         <hr className="hr" />
         <div className="profile_photos">
-          {allPhotos.map((photo, index) => (
-            <img key={index} src={photo} alt="" />
-          ))}
+          {allPhotos.map((photo, index) => {
+            return (
+              <div key={index} className="photo_container">
+                <img src={photo} alt="user photo" />
+                <span>{index}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
