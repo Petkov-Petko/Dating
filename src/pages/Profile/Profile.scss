@@ -55,12 +55,20 @@
         position: absolute;
         top: 50%;
         left: 100%;
-        transform: translate(-50%, -50%);
-        background-color: whitesmoke;
-        padding: 5px;
-        cursor: pointer;
+        transform: translate(-41%, -50%);
+        padding: 1em 1.1em;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        font-weight: 500;
+        color: #000;
+        background-color: #ffffff9a;
         border: none;
-        border-radius: 15px;
+        border-radius: 45px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
       }
     }
   }
@@ -138,6 +146,31 @@
         height: 2px;
         background-color: rgba(107, 107, 107, 0.678);
         margin-top: 10px;
+    }
+    button{
+        padding: 1.3em 3em;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        font-weight: 500;
+        color: #000;
+        background-color: #ffffff9a;
+        border: none;
+        border-radius: 45px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+        margin: 15px 0px 7px 0px;
+      }
+      button:hover {
+        background-color: rgb(255,47,49);
+        box-shadow: 0px 15px 20px rgba(255, 47, 50, 0.53);
+        color: #fff;
+        transform: translateY(-7px);
+      }
+      button:active {
+        transform: translateY(-1px);
     }
     .profile_photos_filter {
       display: flex;

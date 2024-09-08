@@ -10,6 +10,8 @@ import { RootState } from "../../app/store";
 import {
   uploadUserProfilePhoto,
   getUserProfilePhoto,
+  uploadFiles,
+  getFiles,
 } from "../../service/storage";
 
 const Profile = () => {
@@ -19,6 +21,8 @@ const Profile = () => {
   const uid = useSelector((state: RootState) => state.data.user.user?.uid);
   const [editMode, setEditMode] = useState<boolean>(false);
   const [profilePhoto, setProfilePhoto] = useState<string | null>("");
+  const [allPhotos, setAllPhotos] = useState<string[]>([]);
+  const [newPhotos, setNewPhotos] = useState<File[]>([]);
 
   const [userDetails, setUserDetails] = useState({
     firstName: "",
@@ -27,23 +31,40 @@ const Profile = () => {
     country: "",
     description: "",
     title: "",
-    photos: [],
     gender: "",
   });
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const allPhotosInputRef = useRef<HTMLInputElement>(null);
 
   const handleProfilePhotoClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+    if (photoInputRef.current) {
+      photoInputRef.current.click();
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAllPhotosClick = () => {
+    if (allPhotosInputRef.current) {
+      allPhotosInputRef.current.click();
+    }
+  };
+
+  const handleProfileFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const newProfilePhoto = URL.createObjectURL(file);
       setProfilePhoto(newProfilePhoto);
+    }
+  };
+
+  const handleAddPhotos = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const newPhotos: string[] = Array.from(files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      setAllPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
+      setNewPhotos((prevPhotos) => [...prevPhotos, ...Array.from(files)]);
     }
   };
 
@@ -59,13 +80,11 @@ const Profile = () => {
         country: user?.country,
         description: user?.description,
         title: user?.title,
-        photos: user?.photos,
         gender: user?.gender,
       });
       setProfilePhoto(user?.profilePhoto);
+      setAllPhotos(user?.photos ?? []);
     };
-    console.log(uid);
-    console.log(user?.profilePhoto);
 
     fetchUser();
   }, [id]);
@@ -73,12 +92,23 @@ const Profile = () => {
   const updateUser = async () => {
     if (user) {
       if (profilePhoto !== user.profilePhoto) {
-        const file = fileInputRef.current?.files?.[0];
+        const file = photoInputRef.current?.files?.[0];
         if (file) {
           await uploadUserProfilePhoto(id, file);
           const url = await getUserProfilePhoto(id);
           setProfilePhoto(url);
         }
+      }
+      if(allPhotos.length > (user.photos ?? []).length){
+        await Promise.all(
+          newPhotos.map((photo, index) => {
+            uploadFiles(id, photo, `photo${index + user.photos.length}`)
+          } 
+          )
+        );
+        const photosUrls = await getFiles(id) ;
+        await updateUserDetails(id, {photos: photosUrls});
+        setAllPhotos(photosUrls);
       }
       const updatedUser = {
         ...user,
@@ -101,18 +131,29 @@ const Profile = () => {
           <img src={profilePhoto ?? ""} alt="" />
           {editMode && (
             <>
-              <button className="profile_change_profile_btn" onClick={handleProfilePhotoClick}>Change Photo</button>
+              <button
+                className="profile_change_profile_btn"
+                onClick={handleProfilePhotoClick}
+              >
+                Change Photo
+              </button>
               <input
                 type="file"
                 style={{ display: "none" }}
-                ref={fileInputRef}
-                onChange={handleFileChange}
+                ref={photoInputRef}
+                onChange={handleProfileFileChange}
               />
             </>
           )}
         </div>
         <div className="edit_profile">
-          <button onClick={() => setEditMode(!editMode)}>
+          <button onClick={() => {
+            if(!editMode){
+              setProfilePhoto(user?.profilePhoto ?? "")
+              setAllPhotos(user?.photos ?? [])
+            }
+            setEditMode(!editMode)
+            }}>
             <i className="fa-solid fa-user-pen fa-lg"></i>
             {editMode ? "Cancel" : "Edit profile"}
           </button>
@@ -145,7 +186,7 @@ const Profile = () => {
             </>
           ) : (
             <>
-              {user?.firstName} {user?.lastName}
+              {userDetails.firstName} {userDetails.lastName}
             </>
           )}
           , <span className="age">{age}</span>
@@ -161,7 +202,7 @@ const Profile = () => {
               }
             />
           ) : (
-            user?.title
+            userDetails.title
           )}
         </p>
         <div className="profile_details_flex">
@@ -190,7 +231,7 @@ const Profile = () => {
                 className="fa-solid fa-map-pin fa-lg"
                 style={{ color: "#fc4e4c" }}
               ></i>
-              {user?.city}, {user?.country}
+              {userDetails.city}, {userDetails.country}
             </p>
           )}
           {editMode ? (
@@ -207,13 +248,13 @@ const Profile = () => {
             <p>
               <i
                 style={
-                  user?.gender === "male"
+                  userDetails.gender === "male"
                     ? { color: "royalblue" }
                     : { color: "rgb(255, 49, 49)" }
                 }
                 className="fa-solid fa-venus-mars fa-lg"
               ></i>
-              {user?.gender}
+              {userDetails.gender}
             </p>
           )}
         </div>
@@ -226,9 +267,9 @@ const Profile = () => {
               }
             />
           ) : (
-            user?.description
+            userDetails.description
           )}
-        </p>{" "}
+        </p>
         {uid !== id && <button> Like user</button>}
       </div>
       <div className="profile_photos_container">
@@ -236,13 +277,21 @@ const Profile = () => {
           <p>All </p>
           <p>
             Photos{" "}
-            <span className="photos_length_span">{user?.photos?.length}</span>
+            <span className="photos_length_span">{allPhotos.length}</span>
           </p>
           <p>Videos</p>
         </div>
+        {editMode && <button onClick={handleAllPhotosClick}>Add more photos</button>}
+        <input
+          type="file"
+          multiple
+          style={{ display: "none" }}
+          ref={allPhotosInputRef}
+          onChange={handleAddPhotos}
+        />
         <hr className="hr" />
         <div className="profile_photos">
-          {user?.photos?.map((photo, index) => (
+          {allPhotos.map((photo, index) => (
             <img key={index} src={photo} alt="" />
           ))}
         </div>
