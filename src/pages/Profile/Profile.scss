@@ -61,6 +61,12 @@
     align-items: center;
     gap: 7px;
 
+    input, select, textarea {
+      padding: 5px;
+      border: 2px solid rgba(86, 86, 86, 0.591);
+      border-radius: 11px;
+      margin: 7px 0px;
+    }
     .profile_details_title{
         opacity: 0.7;
     }
