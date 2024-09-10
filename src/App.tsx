@@ -63,7 +63,7 @@ function App() {
               }
             />
             <Route
-              path="/messages"
+              path="/messages/:id"
               element={
                 !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Chat />
               }
