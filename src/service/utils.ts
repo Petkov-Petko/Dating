@@ -38,3 +38,19 @@ export const calculateTimeDifference = (dateString: string): string => {
   
     return `${seconds} sec ago`;
 };
+
+/**
+ * Extracts the photo name from a URL.
+ * 
+ * @param {string} url - The URL containing the photo name.
+ * @param {string} uid - The user ID.
+ * @returns {string} - The extracted photo name.
+ */
+export const extractPhotoName = (url: string, uid: string): string => {
+  const parts = url.split(`users%2F${uid}%2F`);
+  if (parts.length > 1) {
+    const photoNameWithToken = parts[1].split('?')[0]; 
+    return decodeURIComponent(photoNameWithToken); 
+  }
+  return '';
+};
