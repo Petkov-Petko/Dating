@@ -7,6 +7,7 @@ import {
   equalTo,
   orderByChild,
   update,
+  child,
 } from "firebase/database";
 import { userCredentials, userDetails } from "../types/types";
 
@@ -132,6 +133,44 @@ export const getLikesIds = async (userId: string) => {
     }
 
     return Object.keys(users);
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+
+export const createChat = async (userId: string, otherUserId: string) => {
+  try {
+    const chatId = userId < otherUserId ? `${userId}_${otherUserId}` : `${otherUserId}_${userId}`;
+    const chatRef = ref(database, `chats/${chatId}`);
+
+    const chatSnapshot = await get(child(ref(database), `chats/${chatId}`));
+    if (!chatSnapshot.exists()) {
+      await set(chatRef, { messages: [], id: chatId, participants: [userId, otherUserId], createdAt: new Date().toISOString() });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getChats = async (userId: string) => {
+  try {
+    const chatsRef = ref(database, "chats");
+    const snapshot = await get(chatsRef);
+    const chats = snapshot.val();
+
+    if (!chats) {
+      return [];
+    }
+
+    return Object.keys(chats).reduce((result, chatId) => {
+      const chat = chats[chatId];
+      if (chat.participants.includes(userId)) {
+        result.push({ id: chatId, ...chat });
+      }
+      return result;
+    }, []);
   } catch (error) {
     console.log(error);
     return [];
