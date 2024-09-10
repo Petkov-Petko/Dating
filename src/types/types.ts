@@ -27,7 +27,6 @@ export interface userDetails {
 }
 
 export interface chat {
-  sender: string;
   id: string;
   createdAt: string;
   participants: string[];
