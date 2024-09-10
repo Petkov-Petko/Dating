@@ -3,8 +3,8 @@ import { getChats, getUser } from "../../service/db-service";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { chats } from "../../types/types";
-import { useNavigate, useParams } from "react-router-dom";
+import { chat } from "../../types/types";
+import { useNavigate } from "react-router-dom";
 
 interface chatDetails {
   id: string;
@@ -14,18 +14,15 @@ interface chatDetails {
 }
 
 const UserMessages = () => {
-  const { id = "" } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const uid = useSelector((state: RootState) => state.data.user.user?.uid);
   const [chatDetails, setChatDetails] = useState<chatDetails[]>([]);
-console.log(id);
 
   useEffect(() => {
     const fetchChats = async () => {
       const userChats = await getChats(uid ?? "");
-      console.log(userChats);
 
-      const chatDetailsPromises = userChats.map(async (chat: chats) => {
+      const chatDetailsPromises = userChats.map(async (chat: chat) => {
         const otherUserId = chat.participants.find(
           (participant: string) => participant !== uid
         );
@@ -44,7 +41,6 @@ console.log(id);
 
       const chatDetails = (await Promise.all(chatDetailsPromises)).filter((chat) => chat !== undefined);
       setChatDetails(chatDetails);
-      console.log(chatDetails);
     };
 
     fetchChats();
