@@ -1,6 +1,6 @@
 import "./Matches.scss";
 import { useState, useEffect } from "react";
-import { getLikesIds, getUser } from "../../service/db-service";
+import { createChat, getLikesIds, getUser } from "../../service/db-service";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { userDetails } from "../../types/types";
@@ -17,6 +17,9 @@ const Matches = () => {
         userLikes.map(async (like) => {
           const userDetails = await getUser(like);
           if (userDetails.likes && uid && userDetails.likes[uid]) {
+            await createChat(uid, userDetails.uid);
+
+            
             return userDetails;
           }
           return null;
