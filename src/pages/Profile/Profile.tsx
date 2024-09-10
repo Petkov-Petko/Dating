@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { getUser, updateUserDetails } from "../../service/db-service";
 import { userDetails } from "../../types/types";
 import { useParams } from "react-router-dom";
-import { calculateAge } from "../../service/utils";
+import { calculateAge, extractPhotoName } from "../../service/utils";
 import { assets } from "../../assets/assets";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
@@ -12,6 +12,7 @@ import {
   getUserProfilePhoto,
   uploadFiles,
   getFiles,
+  removeFile,
 } from "../../service/storage";
 
 const Profile = () => {
@@ -70,7 +71,10 @@ const Profile = () => {
     }
   };
 
-
+  const removePhoto = (index: number) => {
+    setAllPhotos(allPhotos.filter((_, i) => i !== index));
+    setNewPhotos(newPhotos.filter((_, i) => i !== index));
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -103,13 +107,36 @@ const Profile = () => {
           setProfilePhoto(url);
         }
       }
-      if (allPhotos.length > (user.photos ?? []).length) {
+
+      const removedPhotos = (user.photos ?? []).filter(
+        (photo) => !allPhotos.includes(photo)
+      );
+      if (removedPhotos.length > 0) {
+        if (allPhotos.length < 2) {
+          alert("You must have at least two photo");
+          return;
+        }
         await Promise.all(
-          newPhotos.map((photo, index) => {
-            const i = index + user.photos.length;
-            uploadFiles(id, photo, `photo${i}`);
+          removedPhotos.map((photo) => {
+            const photoName = extractPhotoName(photo, id);
+            return removeFile(id, photoName);
           })
         );
+
+        const updatedPhotos = (user.photos ?? []).filter(
+          (photo) => !removedPhotos.includes(photo)
+        );
+        await updateUserDetails(id, { photos: updatedPhotos });
+        setAllPhotos(updatedPhotos);
+      }
+
+      if (newPhotos.length > 0) {
+        await Promise.all(
+          newPhotos.map((photo) => {
+            return uploadFiles(id, photo, `photo${photo.name}${photo.size}`);
+          })
+        );
+
         const photosUrls = await getFiles(id);
         await updateUserDetails(id, { photos: photosUrls });
         setAllPhotos(photosUrls);
@@ -119,8 +146,6 @@ const Profile = () => {
         ...userDetails,
       };
       await updateUserDetails(id, userDetails);
-      console.log(userDetails);
-
       setUser(updatedUser);
 
       setEditMode(false);
@@ -282,7 +307,7 @@ const Profile = () => {
         <div className="profile_photos_filter">
           <p>All </p>
           <p>
-            Photos{" "}
+            Photos
             <span className="photos_length_span">{allPhotos.length}</span>
           </p>
           <p>Videos</p>
@@ -303,7 +328,9 @@ const Profile = () => {
             return (
               <div key={index} className="photo_container">
                 <img src={photo} alt="user photo" />
-                <span>{index}</span>
+                <span onClick={() => removePhoto(index)}>
+                  <i className="fa-solid fa-x fa-xs"></i>
+                </span>
               </div>
             );
           })}
