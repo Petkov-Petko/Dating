@@ -26,15 +26,22 @@ export interface userDetails {
   };
 }
 
-export interface chats {
+export interface chat {
+  sender: string;
   id: string;
   createdAt: string;
   participants: string[];
   messages?: [
     {
-      name: string;
+      sender: string;
       text: string;
       date: string;
     }
   ];
+}
+
+export interface message {
+  sender: string;
+  text: string;
+  date: string;
 }
