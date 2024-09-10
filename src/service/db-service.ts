@@ -8,8 +8,10 @@ import {
   orderByChild,
   update,
   child,
+  push,
+  onValue,
 } from "firebase/database";
-import { userCredentials, userDetails } from "../types/types";
+import { message, userCredentials, userDetails } from "../types/types";
 
 /**
  * Creates a new user in the database.
@@ -175,4 +177,31 @@ export const getChats = async (userId: string) => {
     console.log(error);
     return [];
   }
+};
+
+export const getChat = async (chatId: string) => {
+  try {
+    const chatRef = ref(database, `chats/${chatId}`);
+    const snapshot = await get(chatRef);
+    return snapshot.val();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const sendMessage = async (chatId: string, message: { sender: string; text: string; date: string }) => {
+  try {
+    const chatRef = ref(database, `chats/${chatId}/messages`);
+    await push(chatRef, message);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const listenForMessages = (chatId: string, callback: (messages: message) => void) => {
+  const chatRef = ref(database, `chats/${chatId}/messages`);
+  onValue(chatRef, (snapshot) => {
+    const messages = snapshot.val();
+    callback(messages);
+  });
 };
