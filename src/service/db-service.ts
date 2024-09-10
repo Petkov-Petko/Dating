@@ -11,7 +11,7 @@ import {
   push,
   onValue,
 } from "firebase/database";
-import { message, userCredentials, userDetails } from "../types/types";
+import { chat, message, userCredentials, userDetails } from "../types/types";
 
 /**
  * Creates a new user in the database.
@@ -166,10 +166,10 @@ export const getChats = async (userId: string) => {
       return [];
     }
 
-    return Object.keys(chats).reduce((result, chatId) => {
+    return Object.keys(chats).reduce((result: chat[], chatId) => {
       const chat = chats[chatId];
       if (chat.participants.includes(userId)) {
-        result.push({ id: chatId, ...chat });
+        result.push(chat);
       }
       return result;
     }, []);
