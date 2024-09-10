@@ -6,14 +6,16 @@ import {
   listenForMessages,
   sendMessage,
 } from "../../service/db-service";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { calculateAge, calculateTimeDifference } from "../../service/utils";
 import { message } from "../../types/types";
 
 
+
 const Chat = () => {
+  const navigate = useNavigate();
   const { id: chatId = "" } = useParams<{ id: string }>();
   const uid = useSelector(
     (state: RootState) => state.data.user.user?.uid || ""
@@ -22,6 +24,7 @@ const Chat = () => {
     name: "",
     photo: "",
     age: 0,
+    id: ""
   });
   const [allMessages, setAllMessages] = useState<message[]>([]);
   const [message, setMessage] = useState<string>("");
@@ -43,14 +46,13 @@ const Chat = () => {
         name: `${otherUser.firstName} ${otherUser.lastName}`,
         photo: otherUser.profilePhoto,
         age: calculateAge(otherUser.birthDate),
+        id: otherUserId
       });
 
       setAllMessages(Object.values(chat.messages || {}));
     };
     fetchChat();
-
-    console.log("listening for messages");
-  }, [chatId]);
+  }, [chatId, uid]);
 
   useEffect(() => {
     if (chatAreaRef.current) {
@@ -69,11 +71,11 @@ const Chat = () => {
   return (
     <div className="chat_container">
       <div className="chat_header">
-        <i className="fa-solid fa-circle-arrow-left fa-2xl"></i>
+        <i onClick={()=> navigate("/")} className="fa-solid fa-circle-arrow-left fa-2xl"></i>
         <h3>
           {otherUser.name}, {otherUser.age}
         </h3>
-        <img src={otherUser.photo} alt="" />
+        <img onClick={()=> navigate(`/profile/${otherUser.id}`)} src={otherUser.photo} alt="" />
       </div>
       <div className="chat_area" ref={chatAreaRef}>
         {allMessages?.map((message, index) => (
