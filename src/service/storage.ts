@@ -1,4 +1,4 @@
-import { ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { storage } from "../config/firebase-config.js";
 
 /**
@@ -30,7 +30,7 @@ export const getFiles = async (uid: string): Promise<string[]> => {
     const photosRef = ref(storage, `users/${uid}`);
     const listResult = await listAll(photosRef);
     const urlPromises = listResult.items
-      .filter(itemRef => itemRef.name !== 'profilePhoto') // Filter out 'profilePhoto'
+      .filter(itemRef => itemRef.name !== 'profilePhoto')
       .map(async (itemRef) => {
         const url = await getDownloadURL(itemRef);
         return url;
@@ -41,6 +41,18 @@ export const getFiles = async (uid: string): Promise<string[]> => {
     console.error("Error fetching photos: ", error);
     throw error;
   }
+};
+
+/**
+ * Removes a file from storage.
+ * 
+ * @param {string} uid - The user ID.
+ * @param {string} photoName - The name of the photo to be removed.
+ * @returns {Promise<void>} - A promise that resolves when the file is successfully removed.
+ */
+export const removeFile = async (uid: string, photoName: string) => {
+  const imageNameRef = ref(storage, `users/${uid}/${photoName}`);
+  await deleteObject(imageNameRef);
 };
 
 /**
