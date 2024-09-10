@@ -155,7 +155,6 @@ const Profile = () => {
   return (
     <div className="profile">
       <div className="profile_header">
-        <img src={user?.photos[2]} alt="cover photo" />
         <div className="profile_profile_photo">
           <img src={profilePhoto ?? ""} alt="profile photo" />
           {editMode && (
