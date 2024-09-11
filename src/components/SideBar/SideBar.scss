@@ -1,5 +1,5 @@
 .side_bar {
-  width: 370px;
+  width: 290px;
   padding: 5px 5px;
   display: flex;
   flex-direction: column;
@@ -16,10 +16,10 @@
     }
 
     .switch {
-      --_switch-bg-clr: #4c373b;
+      --_switch-bg-clr: #808080;
       --_switch-padding: 4px; /* padding around button*/
-      --_slider-bg-clr: rgba(101, 15, 32, 0.65); /* slider color unchecked */
-      --_slider-bg-clr-on: rgb(254, 50, 49); /* slider color checked */
+      --_slider-bg-clr: rgba(71, 56, 56, 0.65); /* slider color unchecked */
+      --_slider-bg-clr-on: rgb(33, 27, 27); /* slider color checked */
       --_slider-txt-clr: #ffffff;
       --_label-padding: 1rem 2rem; /* padding around the labels -  this gives the switch it's global width and height */
       --_switch-easing: cubic-bezier(
@@ -99,7 +99,5 @@
     }
   }
 
-  @media screen and (max-width: 780px) {
-    display: none;
-  }
+  
 }

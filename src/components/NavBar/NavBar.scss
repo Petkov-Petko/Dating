@@ -52,7 +52,14 @@
     background-color: #0d1117;
     justify-content: center;
     border-radius: 5px;
-    z-index: 9;
+    z-index: 999;
+
+    .mobile_options{
+
+      @media screen and (min-width: 780px) {
+        display: none;
+      }
+    }
   }
 
   .value {

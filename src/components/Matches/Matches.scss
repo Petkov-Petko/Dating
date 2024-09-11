@@ -1,0 +1,15 @@
+.chat {
+    display: flex;
+    align-items: center;
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      float: left;
+      margin-right: 7px;
+      cursor: pointer;
+    }
+    h4 {
+        cursor: pointer;
+      }
+}

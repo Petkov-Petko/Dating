@@ -60,6 +60,11 @@ const NavBar = () => {
       {showMenu && (
         <div className="options_menu">
           <div className="input">
+            <div className="mobile_options">
+              <button onClick={() => navigate("/mobile")} className="value">
+                <i className="fa-solid fa-comment fa-lg"></i>Messages & Likes
+              </button>
+            </div>
             <button onClick={() => navigate("/settings")} className="value">
               <i className="fa-solid fa-gear fa-lg"></i>Settings
             </button>

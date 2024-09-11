@@ -12,8 +12,6 @@ import { RootState } from "../../app/store";
 import { calculateAge, calculateTimeDifference } from "../../service/utils";
 import { message } from "../../types/types";
 
-
-
 const Chat = () => {
   const navigate = useNavigate();
   const { id: chatId = "" } = useParams<{ id: string }>();
@@ -24,10 +22,11 @@ const Chat = () => {
     name: "",
     photo: "",
     age: 0,
-    id: ""
+    id: "",
   });
   const [allMessages, setAllMessages] = useState<message[]>([]);
   const [message, setMessage] = useState<string>("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 770);
   const chatAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,12 +45,21 @@ const Chat = () => {
         name: `${otherUser.firstName} ${otherUser.lastName}`,
         photo: otherUser.profilePhoto,
         age: calculateAge(otherUser.birthDate),
-        id: otherUserId
+        id: otherUserId,
       });
 
       setAllMessages(Object.values(chat.messages || {}));
     };
+
     fetchChat();
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 770);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [chatId, uid]);
 
   useEffect(() => {
@@ -60,22 +68,48 @@ const Chat = () => {
     }
   }, [allMessages]);
 
+  // useEffect(() => {
+
+  // }, []);
+
+  const handleNavigation = () => {
+    if (isMobile) {
+      navigate("/mobile");
+    } else {
+      navigate("/");
+    }
+  };
+
   const send = async () => {
-    console.log(message);
+    if (message.trim() === "") return;
 
     const time = new Date().toISOString();
     await sendMessage(chatId, { sender: uid, text: message, date: time });
     setMessage("");
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      send();
+    }
+  };
+
   return (
     <div className="chat_container">
       <div className="chat_header">
-        <i onClick={()=> navigate("/")} className="fa-solid fa-circle-arrow-left fa-2xl"></i>
+        <i
+          onClick={handleNavigation}
+          className="fa-solid fa-circle-arrow-left fa-2xl"
+        ></i>
         <h3>
           {otherUser.name}, {otherUser.age}
         </h3>
-        <img onClick={()=> navigate(`/profile/${otherUser.id}`)} src={otherUser.photo} alt="" />
+        <img
+          onClick={() => navigate(`/profile/${otherUser.id}`)}
+          src={otherUser.photo}
+          alt=""
+        />
       </div>
       <div className="chat_area" ref={chatAreaRef}>
         {allMessages?.map((message, index) => (
@@ -98,17 +132,18 @@ const Chat = () => {
           <div className="fileUploadWrapper">
             <label htmlFor="file">
               <i className="fa-solid fa-image fa-xl"></i>
-              <span className="tooltip">Add an image</span>
+              <span>Add an image</span>
             </label>
-            <input type="file" id="file" name="file" />
+            <input type="file" name="file" />
           </div>
           <textarea
             required
             placeholder="Message..."
-            id="messageInput"
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyPress}
+            value={message}
           />
-          <button id="sendButton" onClick={send}>
+          <button onClick={send}>
             <i className="fa-regular fa-paper-plane fa-xl"></i>
           </button>
         </div>

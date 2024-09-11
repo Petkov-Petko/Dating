@@ -3,11 +3,7 @@
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  // background-image: linear-gradient(
-  //   179deg,
-  //   rgba(0, 0, 0, 1) 9.2%,
-  //   rgba(127, 16, 16, 1) 103.9%
-  // );
+  height: 100vh;
   background-color: whitesmoke;
   width: 600px;
   margin-top: 5px;
@@ -30,6 +26,7 @@
       width: 70px;
       height: 70px;
       border-radius: 50%;
+      cursor: pointer;
     }
   }
   .chat_area {
@@ -78,7 +75,6 @@
         max-width: 300px;
         color: black;
       }
-     
     }
   }
   .chat_input {
@@ -93,104 +89,111 @@
       border-radius: 25px;
       border: none;
       margin: 11px 0px;
-    }
 
-    .fileUploadWrapper {
-      width: fit-content;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Arial, Helvetica, sans-serif;
-
-      label {
-        cursor: pointer;
+      .fileUploadWrapper {
         width: fit-content;
-        height: fit-content;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        position: relative;
+        font-family: Arial, Helvetica, sans-serif;
 
-        i {
-          color: rgba(0, 0, 0, 0.774);
+        label {
+          cursor: pointer;
+          width: fit-content;
+          height: fit-content;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
 
-          &:hover {
-            color: #444343;
+          span {
+            position: absolute;
+            top: -40px;
+            display: none;
+            opacity: 0;
+            color: white;
+            font-size: 10px;
+            white-space: nowrap;
+            background-color: #000000cb;
+            padding: 6px 10px;
+            border: 1px solid #3c3c3c;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.596);
+            transition: all 0.3s;
+          }
+          i {
+            color: rgba(0, 0, 0, 0.774);
+            transition: all 0.3s;
+
+
+            &:hover {
+              color: #444343;
+            }
+          }
+
+          &:hover .tooltip {
+            display: block;
+            opacity: 1;
           }
         }
-
-        &:hover .tooltip {
-          display: block;
-          opacity: 1;
+        input {
+          display: none;
         }
       }
-    }
+      textarea {
+        width: 350px;
+        height: 100%;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        padding: 19px 10px 10px 10px;
+        color: rgb(75, 72, 72);
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+        text-align: start;
+        resize: none;
+        overflow: hidden;
+        line-height: 1.1;
+        display: block;
+        font-size: 17px;
+        box-sizing: border-box;
 
-    #file {
-      display: none;
-    }
+        &::placeholder {
+          color: rgba(75, 72, 72, 0.75);
+        }
 
-    .tooltip {
-      position: absolute;
-      top: -40px;
-      display: none;
-      opacity: 0;
-      color: white;
-      font-size: 10px;
-      white-space: nowrap;
-      background-color: #000000cb;
-      padding: 6px 10px;
-      border: 1px solid #3c3c3c;
-      border-radius: 5px;
-      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.596);
-      transition: all 0.3s;
-    }
-
-    #messageInput {
-      width: 350px;
-      height: 100%;
-      background-color: transparent;
-      outline: none;
-      border: none;
-      padding: 19px 10px 10px 10px;
-      color: rgb(75, 72, 72);
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      text-align: start;
-      resize: none; 
-      overflow: hidden; 
-      line-height: 1.1; 
-      display: block; 
-      font-size: 17px;
-      box-sizing: border-box; 
-
-      &::placeholder {
-        color: rgba(75, 72, 72, 0.75);
+        &:focus ~ #sendButton svg path,
+        &:valid ~ #sendButton svg path {
+          fill: #3c3c3c;
+          stroke: white;
+        }
       }
-
-      &:focus ~ #sendButton svg path,
-      &:valid ~ #sendButton svg path {
-        fill: #3c3c3c;
-        stroke: white;
-      }
-    }
-
-    #sendButton {
-      width: fit-content;
-      height: 100%;
-      background-color: transparent;
-      outline: none;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s;
-
-      i {
-        color: rgb(0, 0, 0);
+      button {
+        width: fit-content;
+        height: 100%;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
         transition: all 0.3s;
-        margin-left: auto;
+
+        i {
+          color: rgb(0, 0, 0);
+          transition: all 0.3s;
+          margin-left: auto;
+
+          &:hover {
+            color: #3c3c3c;
+          }
+        }
+      }
+
+      @media screen and (max-width: 440px) {
+        width: 350px;
       }
     }
   }
