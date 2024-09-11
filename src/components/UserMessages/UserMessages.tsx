@@ -10,7 +10,7 @@ interface chatDetails {
   id: string;
   otherUserPhoto: string;
   otherUserName: string;
-  lastMessage : string
+  lastMessage: string;
 }
 
 const UserMessages = () => {
@@ -28,18 +28,28 @@ const UserMessages = () => {
         );
         if (otherUserId) {
           const otherUser = await getUser(otherUserId);
-          const lastMessage = chat.messages && chat.messages.length > 0 ? chat.messages[chat.messages.length - 1] : null;
+          const messages = chat.messages ? Object.values(chat.messages) : [];
+          const lastMessage =
+            chat.messages && messages.length > 0
+              ? messages[messages.length - 1]
+              : null;
 
           return {
             id: chat.id,
             otherUserPhoto: otherUser.profilePhoto,
             otherUserName: `${otherUser.firstName} ${otherUser.lastName}`,
-            lastMessage: lastMessage ? lastMessage.text : "No messages yet",
+            lastMessage: lastMessage
+              ? lastMessage.sender !== uid
+                ? lastMessage.text
+                : "No new messages"
+              : "No messages",
           };
         }
       });
 
-      const chatDetails = (await Promise.all(chatDetailsPromises)).filter((chat) => chat !== undefined);
+      const chatDetails = (await Promise.all(chatDetailsPromises)).filter(
+        (chat) => chat !== undefined
+      );
       setChatDetails(chatDetails);
     };
 
@@ -51,10 +61,14 @@ const UserMessages = () => {
       <h1>Messages</h1>
       <div className="all_messages">
         {chatDetails.map((chat, index) => (
-          <div onClick={()=> navigate(`/messages/${chat.id}`)} className="single_message" key={index}>
+          <div
+            onClick={() => navigate(`/messages/${chat.id}`)}
+            className="single_message"
+            key={index}
+          >
             <img src={chat.otherUserPhoto} alt="" />
             <h4>{chat.otherUserName}</h4>
-           <p>{chat.lastMessage}</p>
+            <p>{chat.lastMessage}</p>
           </div>
         ))}
       </div>
