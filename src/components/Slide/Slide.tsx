@@ -119,7 +119,7 @@ const Slide = () => {
   if (!userToShow) {
     return (
       <div className="noMoreUsers">
-        <h1>No more users to show.</h1>
+        <h1>No more users to show!<br />Come later!</h1>   
       </div>
     );
   }

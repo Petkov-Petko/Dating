@@ -25,7 +25,10 @@ const SetUpPhotos = () => {
 
   const finish = async () => {
     setLoading(true);
-
+    if (photos.length < 2) {
+      alert("Please upload at least 2 photos");
+      return;
+    }
     if (!userId) {
       alert("User ID is undefined");
       return;
@@ -131,9 +134,8 @@ const SetUpPhotos = () => {
             onChange={addPhotos}
           ></input>
           <div className="add_photos_button_div">
-            <p>Profile Photos:</p>
             <button onClick={handleInputClick} className="add_photos">
-              <i className="fa-solid fa-plus fa-xl"></i>
+              Add profile photos
             </button>
           </div>
         </div>
@@ -151,9 +153,21 @@ const SetUpPhotos = () => {
               </div>
             );
           })}
+          {Array.from({ length: 2 - photos.length }).map((_, index) => (
+            <div className="photo_container" key={index}>
+              <div className="photo_layout">
+                <i
+                  onClick={handleInputClick}
+                  className="fa-solid fa-plus fa-2xl"
+                ></i>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <button className="finish_set_up_button" onClick={finish}>Finish</button>
+      <button className="finish_set_up_button" onClick={finish}>
+        Finish
+      </button>
     </div>
   );
 };

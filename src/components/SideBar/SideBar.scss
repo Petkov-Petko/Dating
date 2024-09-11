@@ -1,5 +1,5 @@
 .side_bar {
-  width: 300px;
+  width: 370px;
   padding: 5px 5px;
   display: flex;
   flex-direction: column;
@@ -97,5 +97,9 @@
     .switch > input:checked ~ span:last-of-type {
       opacity: 1;
     }
+  }
+
+  @media screen and (max-width: 780px) {
+    display: none;
   }
 }

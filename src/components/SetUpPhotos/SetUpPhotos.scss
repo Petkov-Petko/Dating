@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .setUp_photos {
   display: flex;
   flex-direction: column;
@@ -5,10 +7,18 @@
   justify-content: center;
   color: wheat;
   gap: 15px;
+  background-image: linear-gradient(
+    179deg,
+    rgba(0, 0, 0, 0.824) 9.2%,
+    rgba(127, 16, 16, 1) 103.9%
+  );
+  padding: 15px 0px;
+  border-radius: 15px;
+
 
   .set_up_profile_photo {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     cursor: pointer;
   }
@@ -17,41 +27,97 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
 
     .add_photos_button_div {
       display: flex;
       align-items: center;
-      .add_photos {
-        height: 50px;
-        width: 50px;
-        cursor: pointer;
-        color: rgb(251, 50, 50);
-        outline: none;
+      justify-content: center;
+      margin-bottom: 15px;
+      gap: 7px;
+
+      p {
+        font-size: 25px;
+      }
+
+      button {
+        color: wheat;
+        text-decoration: none;
+        font-size: 25px;
         border: none;
-        background-color: transparent;
+        background: none;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+
+        &::before {
+          margin-left: auto;
+        }
+
+        &::after,
+        &::before {
+          content: "";
+          width: 0%;
+          height: 2px;
+          background: #f44336;
+          display: block;
+          transition: 0.5s;
+        }
+
+        &:hover::after,
+        &:hover::before {
+          width: 100%;
+        }
       }
     }
   }
 
   .set_up_all_photos {
-    min-height: 400px;
-    min-width: 800px;
-    background-image: linear-gradient(
-      179deg,
-      rgba(0, 0, 0, 0.493) 9.2%,
-      rgba(127, 16, 16, 0.473) 103.9%
-    );  
-    border-radius: 7px;
+    min-height: 300px;
+    // min-width: 600px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     align-items: center;
-    grid-gap: 21px;
+    grid-gap: 0px;
+    padding: 0px 20px;
+
+    .photo_layout {
+      position: relative;
+      display: block;
+      width: 250px;
+      height: 330px;
+      border-radius: 15px;
+      border: 2px solid rgb(183, 180, 180);
+      background-color: #2c2a2a40;
+
+      i {
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+        font-size: 30px;
+        cursor: pointer;
+        color: #ffffff;
+      }
+
+      @media screen and (max-width: 620px) {
+        width: 180px;
+        height: 260px;
+      }
+    }
     .photo_container {
       position: relative;
       display: inline-block;
       margin: 10px;
+
+      @media screen and (max-width: 620px) {
+        margin: 15px;
+      }
+      @media screen and (max-width: 500px) {
+        margin: 6px;
+      }
+      @media screen and (max-width: 420px) {
+        margin: 3px;
+      }
     }
 
     .photo_container img {
@@ -59,6 +125,11 @@
       width: 250px;
       height: 330px;
       border-radius: 15px;
+
+      @media screen and (max-width: 620px) {
+        width: 180px;
+        height: 260px;
+      }
     }
 
     .remove_photo {
@@ -71,103 +142,110 @@
       padding: 2px 5px;
       cursor: pointer;
     }
+
+    @media screen and (max-width: 440px) {
+      padding: 0px;
+    }
   }
 
-  /* From Uiverse.io by namecho */ 
-.finish_set_up_button,
-.finish_set_up_button::after {
- padding: 16px 20px;
- font-size: 18px;
- background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
- border: 0;
- color: #fff;
- letter-spacing: 3px;
- line-height: 1;
- box-shadow: 6px 0px 0px #00e6f6;
- outline: transparent;
- position: relative;
-}
+  .finish_set_up_button,
+  .finish_set_up_button::after {
+    padding: 16px 20px;
+    font-size: 18px;
+    background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
+    border: 0;
+    color: #fff;
+    letter-spacing: 3px;
+    line-height: 1;
+    box-shadow: 6px 0px 0px #00e6f6;
+    outline: transparent;
+    position: relative;
+  }
 
-.finish_set_up_button::after {
- --slice-0: inset(50% 50% 50% 50%);
- --slice-1: inset(80% -6px 0 0);
- --slice-2: inset(50% -6px 30% 0);
- --slice-3: inset(10% -6px 85% 0);
- --slice-4: inset(40% -6px 43% 0);
- --slice-5: inset(80% -6px 5% 0);
- content: "HOVER ME";
- display: block;
- position: absolute;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
- background: linear-gradient(45deg, transparent 3%, #00e6f6 3%, #00e6f6 5%, #ff013c 5%);
- text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
- clip-path: var(--slice-0);
-}
+  .finish_set_up_button::after {
+    --slice-0: inset(50% 50% 50% 50%);
+    --slice-1: inset(80% -6px 0 0);
+    --slice-2: inset(50% -6px 30% 0);
+    --slice-3: inset(10% -6px 85% 0);
+    --slice-4: inset(40% -6px 43% 0);
+    --slice-5: inset(80% -6px 5% 0);
+    content: "HOVER ME";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 3%,
+      #00e6f6 3%,
+      #00e6f6 5%,
+      #ff013c 5%
+    );
+    text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
+    clip-path: var(--slice-0);
+  }
 
-.finish_set_up_button:hover::after {
- animation: 1s glitch;
- animation-timing-function: steps(2, end);
-}
+  .finish_set_up_button:hover::after {
+    animation: 1s glitch;
+    animation-timing-function: steps(2, end);
+  }
 
-@keyframes glitch {
- 0% {
-  clip-path: var(--slice-1);
-  transform: translate(-20px, -10px);
- }
+  @keyframes glitch {
+    0% {
+      clip-path: var(--slice-1);
+      transform: translate(-20px, -10px);
+    }
 
- 10% {
-  clip-path: var(--slice-3);
-  transform: translate(10px, 10px);
- }
+    10% {
+      clip-path: var(--slice-3);
+      transform: translate(10px, 10px);
+    }
 
- 20% {
-  clip-path: var(--slice-1);
-  transform: translate(-10px, 10px);
- }
+    20% {
+      clip-path: var(--slice-1);
+      transform: translate(-10px, 10px);
+    }
 
- 30% {
-  clip-path: var(--slice-3);
-  transform: translate(0px, 5px);
- }
+    30% {
+      clip-path: var(--slice-3);
+      transform: translate(0px, 5px);
+    }
 
- 40% {
-  clip-path: var(--slice-2);
-  transform: translate(-5px, 0px);
- }
+    40% {
+      clip-path: var(--slice-2);
+      transform: translate(-5px, 0px);
+    }
 
- 50% {
-  clip-path: var(--slice-3);
-  transform: translate(5px, 0px);
- }
+    50% {
+      clip-path: var(--slice-3);
+      transform: translate(5px, 0px);
+    }
 
- 60% {
-  clip-path: var(--slice-4);
-  transform: translate(5px, 10px);
- }
+    60% {
+      clip-path: var(--slice-4);
+      transform: translate(5px, 10px);
+    }
 
- 70% {
-  clip-path: var(--slice-2);
-  transform: translate(-10px, 10px);
- }
+    70% {
+      clip-path: var(--slice-2);
+      transform: translate(-10px, 10px);
+    }
 
- 80% {
-  clip-path: var(--slice-5);
-  transform: translate(20px, -10px);
- }
+    80% {
+      clip-path: var(--slice-5);
+      transform: translate(20px, -10px);
+    }
 
- 90% {
-  clip-path: var(--slice-1);
-  transform: translate(-10px, 0px);
- }
+    90% {
+      clip-path: var(--slice-1);
+      transform: translate(-10px, 0px);
+    }
 
- 100% {
-  clip-path: var(--slice-1);
-  transform: translate(0);
- }
-}
-
-  
+    100% {
+      clip-path: var(--slice-1);
+      transform: translate(0);
+    }
+  }
 }
