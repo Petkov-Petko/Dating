@@ -13,6 +13,7 @@ import Home from "./pages/Home/Home";
 import Loading from "./components/Loading/Loading";
 import Chat from "./pages/Messages/Messages";
 import Profile from "./pages/Profile/Profile";
+import MobileSideBar from "./pages/MobileSideBar/MobileSideBar";
 
 function App() {
   const user = useSelector((state: RootState) => state.data.user.user);
@@ -68,10 +69,28 @@ function App() {
                 !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Chat />
               }
             />
-              <Route
+            <Route
               path="/profile/:id"
               element={
-                !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Profile />
+                !user ? (
+                  <PublicHome />
+                ) : !verified ? (
+                  <SetUpAccount />
+                ) : (
+                  <Profile />
+                )
+              }
+            />
+            <Route
+              path="/mobile"
+              element={
+                !user ? (
+                  <PublicHome />
+                ) : !verified ? (
+                  <SetUpAccount />
+                ) : (
+                  <MobileSideBar />
+                )
               }
             />
           </Routes>
