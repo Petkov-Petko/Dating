@@ -5,6 +5,7 @@ import { getStorage } from "firebase/storage";
 // import { getAnalytics } from "firebase/analytics";
 
 
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "datingapp-8e4ad.firebaseapp.com",
@@ -15,6 +16,8 @@ const firebaseConfig = {
   appId: "1:236486004044:web:6214713ecaf82db10f53e9",
   measurementId: "G-PF8FLKKR21"
 };
+
+
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

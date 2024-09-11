@@ -175,18 +175,22 @@ const Profile = () => {
           )}
         </div>
         <div className="edit_profile">
-          <button
-            onClick={() => {
-              if (!editMode) {
-                setProfilePhoto(user?.profilePhoto ?? "");
-                setAllPhotos(user?.photos ?? []);
-              }
-              setEditMode(!editMode);
-            }}
-          >
-            <i className="fa-solid fa-user-pen fa-lg"></i>
-            {editMode ? "Cancel" : "Edit profile"}
-          </button>
+          {uid === id && (
+            <button
+              onClick={() => {
+                console.log(editMode);
+                if (editMode) {
+                  setProfilePhoto(user?.profilePhoto ?? "");
+                  setAllPhotos(user?.photos ?? []);
+                }
+                setEditMode(!editMode);
+              }}
+            >
+              <i className="fa-solid fa-user-pen fa-lg"></i>
+              {editMode ? "Cancel" : "Edit profile"}
+            </button>
+          )}
+
           {editMode && (
             <button onClick={updateUser}>
               <i className="fa-solid fa-save fa-lg"></i>
@@ -327,9 +331,11 @@ const Profile = () => {
             return (
               <div key={index} className="photo_container">
                 <img src={photo} alt="user photo" />
-                <span onClick={() => removePhoto(index)}>
-                  <i className="fa-solid fa-x fa-xs"></i>
-                </span>
+                {editMode && (
+                  <span onClick={() => removePhoto(index)}>
+                    <i className="fa-solid fa-x fa-xs"></i>
+                  </span>
+                )}
               </div>
             );
           })}
