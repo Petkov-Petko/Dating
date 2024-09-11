@@ -1,4 +1,10 @@
 .home_container {
   display: flex;
   height: 100vh;
+
+  .side_bar {
+    @media screen and (max-width: 720px) {
+      display: none;
+    }
+  }
 }

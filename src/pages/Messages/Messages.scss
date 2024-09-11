@@ -1,5 +1,10 @@
-.messages{
-    display: flex;
-    background-color: rgb(78, 78, 78);
+.messages {
+  display: flex;
+  background-color: rgb(78, 78, 78);
 
+  .side_bar {
+    @media screen and (max-width: 770px) {
+      display: none;
+    }
+  }
 }
