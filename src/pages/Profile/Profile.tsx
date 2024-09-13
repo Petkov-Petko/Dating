@@ -1,6 +1,6 @@
 import "./Profile.scss";
 import { useState, useEffect, useRef } from "react";
-import { getUser, updateUserDetails } from "../../service/db-service";
+import { getUser, likeUser, updateUserDetails } from "../../service/db-service";
 import { userDetails } from "../../types/types";
 import { useParams } from "react-router-dom";
 import { calculateAge, extractPhotoName } from "../../service/utils";
@@ -24,6 +24,7 @@ const Profile = () => {
   const [profilePhoto, setProfilePhoto] = useState<string | null>("");
   const [allPhotos, setAllPhotos] = useState<string[]>([]);
   const [newPhotos, setNewPhotos] = useState<File[]>([]);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
   const [userDetails, setUserDetails] = useState({
     firstName: "",
@@ -76,6 +77,16 @@ const Profile = () => {
     setNewPhotos(newPhotos.filter((_, i) => i !== index));
   };
 
+  const like = async () => {
+    const date = new Date().toISOString();
+    if (uid) {
+      await likeUser(uid, id, date);
+      setIsLiked(true);
+    } else {
+      console.error("User ID is undefined");
+    }
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       const user = await getUser(id);
@@ -92,10 +103,14 @@ const Profile = () => {
       });
       setProfilePhoto(user?.profilePhoto);
       setAllPhotos(user?.photos ?? []);
+
+      const myProfile = await getUser(uid ?? "");
+
+      setIsLiked(Object.keys(myProfile?.likes ?? []).includes(id));
     };
 
     fetchUser();
-  }, [id]);
+  }, [id, uid]);
 
   const updateUser = async () => {
     if (user) {
@@ -304,16 +319,20 @@ const Profile = () => {
             userDetails.description
           )}
         </p>
-        {uid !== id && <button> Like user</button>}
+        {uid !== id ? (
+          isLiked ? (
+            <button>User Liked</button>
+          ) : (
+            <button onClick={like}>Like user</button>
+          )
+        ) : null}
       </div>
       <div className="profile_photos_container">
         <div className="profile_photos_filter">
-          <p>All </p>
           <p>
             Photos
             <span className="photos_length_span">{allPhotos.length}</span>
           </p>
-          <p>Videos</p>
         </div>
         {editMode && (
           <button onClick={handleAllPhotosClick}>Add more photos</button>

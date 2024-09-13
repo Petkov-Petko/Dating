@@ -8,31 +8,33 @@
   background-color: rgba(228, 224, 224, 0.345);
   align-items: center;
   width: 700px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   .profile_header {
     width: 100%;
     position: relative;
-  
-    .edit_profile{
-        position: absolute;
-        top: 10px;
-        right: 11px;
-        
-        button{
-            border-radius: 15px;
-            background-color: #dbd9d9;
-            padding: 5px;
-            cursor: pointer;
-            border: none;
-            margin-bottom: 7px;
-            margin-left: 5px;
-            i{
-                padding-right: 3px;
-            }
-            &:hover{
-                background-color: #918f8f;
-            }
+
+    .edit_profile {
+      position: absolute;
+      top: 10px;
+      right: 11px;
+
+      button {
+        border-radius: 15px;
+        background-color: #dbd9d9;
+        padding: 5px;
+        cursor: pointer;
+        border: none;
+        margin-bottom: 7px;
+        margin-left: 5px;
+        i {
+          padding-right: 3px;
         }
+        &:hover {
+          background-color: #918f8f;
+        }
+      }
     }
 
     .profile_profile_photo {
@@ -47,7 +49,7 @@
         border-radius: 50%;
         border: 2px solid white;
       }
-      .profile_change_profile_btn{
+      .profile_change_profile_btn {
         position: absolute;
         top: 50%;
         left: 100%;
@@ -76,14 +78,16 @@
     align-items: center;
     gap: 7px;
 
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       padding: 5px;
       border: 2px solid rgba(86, 86, 86, 0.591);
       border-radius: 11px;
       margin: 7px 0px;
     }
-    .profile_details_title{
-        opacity: 0.7;
+    .profile_details_title {
+      opacity: 0.7;
     }
 
     .age {
@@ -94,10 +98,10 @@
       display: flex;
       gap: 15px;
 
-      i{
+      i {
         padding-right: 5px;
       }
-      p{
+      p {
         padding: 11px;
         border: 2px solid rgba(86, 86, 86, 0.591);
         border-radius: 11px;
@@ -118,17 +122,16 @@
       cursor: pointer;
       outline: none;
       margin: 11px 0px;
-    }
 
-    button:hover {
-      background-color: rgb(255,47,49);
-      box-shadow: 0px 15px 20px rgba(255, 47, 50, 0.53);
-      color: #fff;
-      transform: translateY(-7px);
-    }
-
-    button:active {
-      transform: translateY(-1px);
+      &:hover {
+        background-color: rgb(255, 47, 49);
+        box-shadow: 0px 15px 20px rgba(255, 47, 50, 0.53);
+        color: #fff;
+        transform: translateY(-7px);
+      }
+      &:active {
+        transform: translateY(-1px);
+      }
     }
   }
   .profile_photos_container {
@@ -137,50 +140,51 @@
     align-items: center;
     margin-top: 7px;
 
-    .hr{
-        width: 100%;
-        height: 2px;
-        background-color: rgba(107, 107, 107, 0.678);
-        margin-top: 10px;
+    .hr {
+      width: 100%;
+      height: 2px;
+      background-color: rgba(107, 107, 107, 0.678);
+      margin-top: 10px;
     }
-    button{
-        padding: 1.3em 3em;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 2.5px;
-        font-weight: 500;
-        color: #000;
-        background-color: #ffffff9a;
-        border: none;
-        border-radius: 45px;
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease 0s;
-        cursor: pointer;
-        outline: none;
-        margin: 15px 0px 7px 0px;
-      }
-      button:hover {
-        background-color: rgb(255,47,49);
-        box-shadow: 0px 15px 20px rgba(255, 47, 50, 0.53);
-        color: #fff;
-        transform: translateY(-7px);
-      }
-      button:active {
-        transform: translateY(-1px);
+    button {
+      padding: 1.3em 3em;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      font-weight: 500;
+      color: #000;
+      background-color: #ffffff9a;
+      border: none;
+      border-radius: 45px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease 0s;
+      cursor: pointer;
+      outline: none;
+      margin: 15px 0px 7px 0px;
+    }
+    button:hover {
+      background-color: rgb(255, 47, 49);
+      box-shadow: 0px 15px 20px rgba(255, 47, 50, 0.53);
+      color: #fff;
+      transform: translateY(-7px);
+    }
+    button:active {
+      transform: translateY(-1px);
     }
     .profile_photos_filter {
       display: flex;
       gap: 15px;
       cursor: pointer;
-        p{
-            transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+      p {
+        transition: transform 0.3s ease, background-color 0.3s ease,
+          border 0.3s ease;
 
-            &:hover{
-                border-radius: 15px;
-                color: rgb(58, 58, 58);
-              }
+        &:hover {
+          border-radius: 15px;
+          color: rgb(58, 58, 58);
         }
-      .photos_length_span{
+      }
+      .photos_length_span {
         background-color: rgb(107, 107, 107);
         padding: 6px 10px;
         border-radius: 50%;
@@ -196,7 +200,7 @@
       overflow-y: auto;
       margin-top: 7px;
 
-      .photo_container{
+      .photo_container {
         position: relative;
 
         img {
@@ -205,7 +209,7 @@
           border-radius: 15px;
           margin: 10px;
         }
-        span{
+        span {
           position: absolute;
           top: 17px;
           right: 17px;
@@ -216,7 +220,6 @@
           cursor: pointer;
         }
       }
-      
     }
   }
 }
