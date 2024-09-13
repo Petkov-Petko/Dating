@@ -15,7 +15,6 @@
   padding: 15px 0px;
   border-radius: 15px;
 
-
   .set_up_profile_photo {
     width: 150px;
     height: 150px;
@@ -33,12 +32,18 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 15px;
-      gap: 7px;
+      gap: 15px;
+      flex-direction: column;
 
-      p {
-        font-size: 25px;
+      i {
+        font-size: 3em;
+        margin: 15px 0px;
+        cursor: pointer;
+
+        &:hover {
+          color: #f44336;
+        }
       }
-
       button {
         color: wheat;
         text-decoration: none;
@@ -47,6 +52,7 @@
         background: none;
         font-weight: 600;
         font-family: "Poppins", sans-serif;
+        cursor: pointer;
 
         &::before {
           margin-left: auto;
@@ -160,6 +166,7 @@
     box-shadow: 6px 0px 0px #00e6f6;
     outline: transparent;
     position: relative;
+    cursor: pointer;
   }
 
   .finish_set_up_button::after {

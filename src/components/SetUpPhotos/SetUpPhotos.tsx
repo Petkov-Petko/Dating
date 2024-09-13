@@ -137,6 +137,7 @@ const SetUpPhotos = () => {
             <button onClick={handleInputClick} className="add_photos">
               Add profile photos
             </button>
+            <i onClick={handleInputClick} className="fa-solid fa-circle-plus fa-2xl"></i>
           </div>
         </div>
         <div className="set_up_all_photos">
