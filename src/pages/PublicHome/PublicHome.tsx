@@ -1,6 +1,6 @@
 import { assets } from "../../assets/assets";
-import Login from "../Login/Login";
-import Register from "../Register/Register";
+import Login from "../../components/Login/Login";
+import Register from "../../components/Register/Register";
 import "./PublicHome.scss";
 import { useState } from "react";
 
