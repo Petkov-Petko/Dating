@@ -1,50 +1,51 @@
-# React + TypeScript + Vite
+# Dating App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Dating App! This application allows users to create accounts, browse through other users, like or skip them, and chat in real-time if there's a mutual match. The app is fully responsive and optimized for mobile users.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Accounts**: Create and manage user profiles with detailed information.
+- **Swipe Functionality**: Browse through other users and decide to like or skip them.
+- **Matching System**: Get matched with other users if both like each other.
+- **Real-Time Chat**: Message your matches in real-time.
+- **Responsive Design**: Fully responsive and optimized for mobile users.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **TypeScript**: For type-safe JavaScript development.
+- **React**: For building the user interface.
+- **Firebase**: For data storing.
+- **Redux**: For state management.
+- **SASS**: For styling the application.
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Prerequisites
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Make sure you have the following installed:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Node.js
+- npm (Node Package Manager) or yarn
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Local Setup
+
+To set up the project locally, follow these steps:
+
+1. Clone the repository.
+2. Install dependencies by running the following command in the project directory:
+    ```
+    npm install
+    ```
+3. Start the development server:
+    ```
+    npm run dev
+    ```
+
+Please note that you need to have Node.js and npm installed on your machine to set up and run the project locally.
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request
+
+## Contact
+If you have any questions or feedback, feel free to reach out to us at petkozlatilov1234@gmail.com
