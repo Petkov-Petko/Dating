@@ -74,7 +74,7 @@
         align-items: center;
         height: 20px;
         max-width: 430px;
-        h1{
+        h1 {
           cursor: pointer;
         }
         p {
@@ -114,6 +114,8 @@
         margin-right: 17px;
         .button_left {
           background-color: rgb(57, 57, 57);
+          cursor: pointer;
+
           .fa-xmark {
             color: white;
           }
@@ -126,13 +128,15 @@
         }
         .button_right {
           background-color: rgb(206, 82, 37);
+          cursor: pointer;
           .fa-heart {
             color: white;
           }
           &:hover {
-            background-color: rgb(223, 137, 32);
+            background-color: rgb(255, 49, 49);
             .fa-heart {
               scale: 1.2;
+              color: rgb(51, 42, 42);
             }
           }
         }
