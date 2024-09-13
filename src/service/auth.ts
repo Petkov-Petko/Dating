@@ -103,7 +103,7 @@ export const logIn = async (emailAddress: string, password: string) => {
     return userCredentials;
   } catch (error) {
     console.log(error);
-    throw new Error("Invalid email or password");
+    return false;
   }
 };
 
