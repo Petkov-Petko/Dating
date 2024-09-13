@@ -1,26 +1,14 @@
 import "./Landing.scss";
 import { assets } from "../../assets/assets";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import LandingNavBar from "../../components/LandingNavBar/LandingNavBar";
 
 const Landing = () => {
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   return (
     <div className="landing_page_container">
-      <div className="landing_page_nav">
-        <img src={assets.logo} alt="logo" />
-        <div className="landing_page_nav_btn">
-          <button onClick={()=> navigate("/login")} className="landing_page_nav_btn_login">Login</button>
-          <button onClick={()=> navigate("/register")} className="landing_page_nav_btn_signUp">
-            Sign up
-            <div className="arrow-wrapper">
-              <div className="arrow"></div>
-            </div>
-          </button>
-        </div>
-      </div>
+      <LandingNavBar />
       <div className="landing_page_middle">
         <div className="landing_page_middle_left">
           <h1>
