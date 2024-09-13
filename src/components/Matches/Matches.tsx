@@ -37,6 +37,11 @@ const Matches = () => {
   return (
     <div>
       <div className="like_container">
+        {matches.length === 0 && (
+          <p>
+            Matches will show up here when you start liking people.
+          </p>
+        )}
         {matches.map((match) => (
           <div key={match.uid} className="chat">
             <img

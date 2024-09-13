@@ -37,6 +37,7 @@ const Likes = () => {
 
   return (
     <div className="like_container">
+      {likes.length === 0 && (<p>Users who liked you will be shown here.</p>)}
       {likes.map((like) => (
         <div key={like.user.uid} className="like">
           <img onClick={()=> navigate(`/profile/${like.user.uid}`)} src={like.user.profilePhoto} alt="" />

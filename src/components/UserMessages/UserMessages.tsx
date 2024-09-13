@@ -59,7 +59,14 @@ const UserMessages = () => {
   return (
     <div className="messages_container">
       <h1>Messages</h1>
+      <hr />
       <div className="all_messages">
+        {chatDetails.length === 0 && (
+          <p>
+            When you match with someone you will be able to start a
+            conversation.
+          </p>
+        )}
         {chatDetails.map((chat, index) => (
           <div
             onClick={() => navigate(`/messages/${chat.id}`)}

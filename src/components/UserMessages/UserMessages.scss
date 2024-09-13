@@ -13,6 +13,12 @@
     min-height: 250px;
     margin-top: 5px;
 
+    p {
+      font-size: 20px;
+      font-weight: 600;
+      opacity: 0.7;
+      font-style: italic;
+    }
     .single_message {
       cursor: pointer;
       img {
@@ -22,12 +28,12 @@
         height: 60px;
         border-radius: 50%;
       }
-      h4{
-        font-family: 'Courier New', Courier, monospace;
+      h4 {
+        font-family: "Courier New", Courier, monospace;
       }
-      p{
+      p {
         padding-top: 5px;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: "Courier New", Courier, monospace;
         opacity: 0.8;
       }
     }
