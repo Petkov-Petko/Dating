@@ -2,9 +2,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  margin: 70px auto;
+  margin: 0px auto;
+  min-height: 100vh; 
+  background-image: url("../../assets/homeBg1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; 
 
+  .publicHome_left {
+    video {
+      width: 550px;
+      height: 550px;
+      outline: none;
+      pointer-events: none;
+    }
+    .no-controls::-webkit-media-controls {
+      display: none !important;
+    }
+      @media screen and (max-width: 930px) {
+        display: none;
+        
+      }
+  }
   .sign-up-label {
     margin: 0;
     font-size: 15px;
@@ -17,10 +35,10 @@
     border-radius: 10px;
     margin-top: 15px;
 
-    span{
-        color: rgb(61, 174, 174);
-        cursor: pointer;
-        padding-left: 7px;
+    span {
+      color: rgb(61, 174, 174);
+      cursor: pointer;
+      padding-left: 7px;
     }
   }
 }

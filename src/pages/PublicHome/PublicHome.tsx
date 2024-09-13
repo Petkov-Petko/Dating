@@ -1,3 +1,4 @@
+import { assets } from "../../assets/assets";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import "./PublicHome.scss";
@@ -16,9 +17,16 @@ const PublicHome = ({ activeState }: { activeState: string }) => {
 
   return (
     <div className="publicHome">
-      <div>
-        <img src="https://via.placeholder.com/550" alt="" />
-      </div>
+      <div className="publicHome_left">
+      <video 
+          src={assets.homeVideo} 
+          autoPlay 
+          muted 
+          loop 
+          controls
+          className="no-controls"
+
+        ></video>      </div>
       <div>
         {active === "login" ? <Login /> : <Register />}
         {active === "login" ? (
