@@ -14,6 +14,7 @@ import Loading from "./components/Loading/Loading";
 import Chat from "./pages/Messages/Messages";
 import Profile from "./pages/Profile/Profile";
 import MobileSideBar from "./pages/MobileSideBar/MobileSideBar";
+import Landing from "./pages/Landing/Landing";
 
 function App() {
   const user = useSelector((state: RootState) => state.data.user.user);
@@ -60,20 +61,28 @@ function App() {
             <Route
               path="/"
               element={
-                !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Home />
+                !user ? <Landing /> : !verified ? <SetUpAccount /> : <Home />
               }
+            />
+            <Route
+              path="/login"
+              element={!user ? <PublicHome activeState="login" /> : !verified ? <SetUpAccount /> : <Home />}
+            />
+            <Route
+              path="/register"
+              element={!user ? <PublicHome activeState="register" /> : !verified ? <SetUpAccount /> : <Home />}
             />
             <Route
               path="/messages/:id"
               element={
-                !user ? <PublicHome /> : !verified ? <SetUpAccount /> : <Chat />
+                !user ? <PublicHome activeState="login" /> : !verified ? <SetUpAccount /> : <Chat />
               }
             />
             <Route
               path="/profile/:id"
               element={
                 !user ? (
-                  <PublicHome />
+                  <PublicHome activeState="login" />
                 ) : !verified ? (
                   <SetUpAccount />
                 ) : (
@@ -85,7 +94,7 @@ function App() {
               path="/mobile"
               element={
                 !user ? (
-                  <PublicHome />
+                  <PublicHome activeState="login" />
                 ) : !verified ? (
                   <SetUpAccount />
                 ) : (
@@ -93,6 +102,7 @@ function App() {
                 )
               }
             />
+          
           </Routes>
         </>
       )}
