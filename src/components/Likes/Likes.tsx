@@ -29,9 +29,7 @@ const Likes = () => {
               date: user.likes && userId ? user.likes[userId] : "",
             };
           })
-      );
-      console.log(likes);
-      
+      );      
       setLikes(likes);
     };
     fetchLikes();
