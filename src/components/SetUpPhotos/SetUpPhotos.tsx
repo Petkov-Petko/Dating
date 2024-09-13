@@ -24,7 +24,6 @@ const SetUpPhotos = () => {
   const [loading, setLoading] = useState(false);
 
   const finish = async () => {
-    setLoading(true);
     if (photos.length < 2) {
       alert("Please upload at least 2 photos");
       return;
@@ -37,6 +36,7 @@ const SetUpPhotos = () => {
       alert("Please upload a profile photo");
       return;
     }
+    setLoading(true);
 
     await uploadUserProfilePhoto(userId, profilePhoto);
     await Promise.all(
