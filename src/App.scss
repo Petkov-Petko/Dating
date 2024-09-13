@@ -1,9 +1,10 @@
+@use "./styles/mixins.scss";
+
 .home_container {
   display: flex;
   height: 100vh;
 }
 
 .error_msg {
-  color: red;
-  padding: 5px 0px;
+ @include mixins.error_msg
 }
