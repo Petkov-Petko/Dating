@@ -9,9 +9,10 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { userDetails } from "../../types/types";
-import { calculateAge } from "../../service/utils";
+import { calculateAge} from "../../service/utils";
 import Loading from "../Loading/Loading";
 import PhotoIndicator from "../PhotoIndicator/PhotoIndicator";
+import { useNavigate } from "react-router-dom";
 
 const Slide = () => {
   const userId = useSelector((state: RootState) => state.data.user.user?.uid);
@@ -21,10 +22,10 @@ const Slide = () => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [age, setAge] = useState(0);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const nextPhoto = () => {
     setLoading(true);
-
     if (photoIndex < userToShowPhotos.length - 1) {
       setPhotoIndex(photoIndex + 1);
     } else {
@@ -86,7 +87,7 @@ const Slide = () => {
         const filteredUsers = users.filter(
           (user) => !likedUsers.includes(user.uid)
         );
-
+        
         const maleUsers = filteredUsers.filter(
           (user) => user.gender === "male"
         );
@@ -150,7 +151,7 @@ const Slide = () => {
         </div>
         <div className="slide_content">
           <div className="slide_top">
-            <h1>{userToShow?.firstName}</h1>
+            <h1 onClick={()=>navigate(`/profile/${userToShow.uid}`)}>{userToShow?.firstName}</h1>
             <p>{age}</p>
           </div>
           <div className="slide_middle">
