@@ -24,6 +24,8 @@ export interface userDetails {
   likes?: {
     [key: string]: string;
   };
+  looking: string;
+  hight: number;
 }
 
 export interface chat {
