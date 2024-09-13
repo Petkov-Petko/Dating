@@ -1,0 +1,221 @@
+.landing_page_container {
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+
+  .landing_page_nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      width: 130px;
+    }
+
+    .landing_page_nav_btn {
+      display: flex;
+      gap: 21px;
+
+      .landing_page_nav_btn_login {
+        border: none;
+        background-color: transparent;
+        font-size: 21px;
+        font-weight: 600;
+        font-family: "Times New Roman", Times, serif;
+        cursor: pointer;
+      }
+      .landing_page_nav_btn_signUp {
+        cursor: pointer;
+        --primary-color: rgba(255, 48, 48, 0.587);
+        --secondary-color: #fff;
+        --hover-color: #111;
+        --arrow-width: 10px;
+        --arrow-stroke: 2px;
+        box-sizing: border-box;
+        border: 0;
+        border-radius: 20px;
+        color: var(--secondary-color);
+        padding: 1em 1.8em;
+        background: var(--primary-color);
+        display: flex;
+        transition: 0.2s background;
+        align-items: center;
+        gap: 0.6em;
+        font-weight: bold;
+
+        .arrow-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .arrow {
+          margin-top: 1px;
+          width: var(--arrow-width);
+          background: var(--primary-color);
+          height: var(--arrow-stroke);
+          position: relative;
+          transition: 0.2s;
+        }
+
+        .arrow::before {
+          content: "";
+          box-sizing: border-box;
+          position: absolute;
+          border: solid var(--secondary-color);
+          border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+          display: inline-block;
+          top: -3px;
+          right: 3px;
+          transition: 0.2s;
+          padding: 3px;
+          transform: rotate(-45deg);
+        }
+
+        &:hover {
+          background-color: var(--hover-color);
+        }
+
+        &:hover .arrow {
+          background: var(--secondary-color);
+        }
+
+        &:hover .arrow:before {
+          right: 0;
+        }
+      }
+    }
+  
+  }
+  .landing_page_middle {
+    margin-top: 5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .landing_page_middle_left {
+      position: relative;
+      max-width: 500px;
+      h1 {
+        font-size: 3.5em;
+        font-weight: 600;
+        color: #111;
+        span {
+          font-family: "Caveat", cursive;
+          font-optical-sizing: auto;
+          font-weight: 500;
+          font-style: normal;
+        }
+        @media screen and (max-width: 640px) {
+          font-size: 2.5em;
+          margin-bottom: 40px;
+        }
+      }
+      p {
+        font-size: 1.5em;
+        font-weight: 400;
+        color: #111;
+        margin-top: 1em;
+        @media screen and (max-width: 640px) {
+          margin-bottom: 40px;
+          margin-top: 7em;
+          max-width: 170px;
+        }
+      }
+      .app_download {
+        display: flex;
+        gap: 21px;
+        margin-top: 30px;
+        .playstore-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid #000;
+          border-radius: 9999px;
+          background-color: rgba(0, 0, 0, 1);
+          padding: 0.625rem 1.5rem;
+          text-align: center;
+          color: rgba(255, 255, 255, 1);
+          outline: 0;
+          transition: all 0.2s ease;
+          text-decoration: none;
+
+          @media screen and (max-width: 640px) {
+            width: 170px;
+          }
+        }
+
+        .playstore-button:hover {
+          background-color: transparent;
+          color: rgba(0, 0, 0, 1);
+        }
+
+        .texts {
+          margin-left: 1rem;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          line-height: 1;
+        }
+
+        .text-1 {
+          margin-bottom: 0.25rem;
+          font-size: 0.75rem;
+          line-height: 1rem;
+        }
+
+        .text-2 {
+          font-weight: 600;
+        }
+        @media screen and (max-width: 640px) {
+          margin-top: 4em;
+          gap: 10px;
+        }
+      }
+      .development_msg {
+        color: red;
+        font-size: 17px;
+      }
+      @media screen and (max-width: 960px) {
+        margin-top: 7em;
+        margin-right: 5em;
+      }
+      @media screen and (max-width: 640px) {
+        margin-top: 0.7em;
+        margin-right: 0em;
+      }
+    }
+    .landing_page_middle_right {
+      img {
+        width: 600px;
+        height: 600px;
+
+        @media screen and (max-width: 960px) {
+          position: absolute;
+          z-index: -1;
+          width: 600px;
+          height: 600px;
+          top: 47%;
+          right: 47%;
+          transform: translate(50%, -50%);
+          opacity: 0.8;
+        }
+        @media screen and (max-width: 640px) {
+          width: 370px;
+          height: 370px;
+          top: 50%;
+          right: 50%;
+          transform: translate(50%, -50%);
+          opacity: 0.8;
+          overflow: hidden;
+        }
+      }
+    }
+    @media screen and (max-width: 640px) {
+     margin-top: 0px;
+    }
+  }
+  @media screen and (max-width: 640px) {
+   padding: 20px 10px;
+  }
+}
