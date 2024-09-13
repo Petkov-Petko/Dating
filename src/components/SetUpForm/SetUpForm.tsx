@@ -20,6 +20,8 @@ const SetUpForm: React.FC<SetUpFormProps> = ({ onNext }) => {
     city: "",
     title: "",
     description: "",
+    looking: "",
+    hight: 0,
   });
   const userId = useSelector((state: RootState) => state.data.user.user?.uid);
 
@@ -168,6 +170,37 @@ const SetUpForm: React.FC<SetUpFormProps> = ({ onNext }) => {
               onChange={handleChange}
             />
           </div>
+        </div>
+        <div>
+        <div className="column">
+          <div className="input-box">
+            <label>Looking for</label>
+            <div className="select-box">
+              <select
+                name="looking"
+                value={formData.looking}
+                onChange={handleChange}
+              >
+                <option hidden>New friends</option>
+                <option value="New friends">New friends</option>
+                <option value="Long relationship">Long relationship</option>
+                <option value="Something short">Something short</option>
+                <option value="Still don't know">Still don't know</option>
+              </select>
+            </div>
+          </div>
+          <div className="input-box">
+            <label>hight (cm)</label>
+            <input
+              required
+              placeholder="170"
+              type="number"
+              name="hight"
+              value={formData.hight}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
         </div>
         <div>
           <div>
