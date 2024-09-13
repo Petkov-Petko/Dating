@@ -3,10 +3,10 @@
   justify-content: center;
   align-items: center;
   margin: 0px auto;
-  min-height: 100vh; 
+  min-height: 100vh;
   background-image: url("../../assets/homeBg1.jpg");
   background-size: cover;
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
 
   .publicHome_left {
     video {
@@ -18,10 +18,9 @@
     .no-controls::-webkit-media-controls {
       display: none !important;
     }
-      @media screen and (max-width: 930px) {
-        display: none;
-        
-      }
+    @media screen and (max-width: 930px) {
+      display: none;
+    }
   }
   .sign-up-label {
     margin: 0;

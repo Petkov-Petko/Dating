@@ -16,7 +16,7 @@ const Landing = () => {
             <br />
             single person
           </h1>
-          <p>
+          <p className="landing_page_middle_left_description">
             Swipe through connections, spark real stories—because every great
             love starts with a match!
           </p>

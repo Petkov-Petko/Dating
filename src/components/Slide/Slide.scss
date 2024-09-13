@@ -17,6 +17,7 @@
     background-color: rgb(143, 141, 141);
     margin: 0 auto;
     border-radius: 15px;
+
     .blur {
       position: absolute;
       bottom: 0;
@@ -34,9 +35,20 @@
         rgba(0, 0, 0, 0.048144257703081283) 96%,
         rgba(0, 0, 0, 0) 100%
       );
+      @media screen and (max-width: 430px) {
+        height: 520px;
+        border-radius: 0px;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 1) 54%,
+          rgba(0, 0, 0, 0.719) 71%,
+          rgba(0, 0, 0, 0.09) 81%,
+          rgba(0, 0, 0, 0.015) 86%,       
+        );
+      }
     }
     img {
-      width: 400px;
+      width: 420px;
       height: 530px;
       border-radius: 15px;
       @media screen and (max-width: 430px) {
@@ -154,6 +166,7 @@
     }
     @media screen and (max-width: 430px) {
       width: 100%;
+      height: 100vh;
     }
   }
 }
