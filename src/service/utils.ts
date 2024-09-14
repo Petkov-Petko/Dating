@@ -1,3 +1,5 @@
+import { assets } from "../assets/assets";
+
 export const calculateAge = (birthDateString: string): number => {
     const birthDate = new Date(birthDateString);
     const today = new Date();
@@ -54,3 +56,38 @@ export const extractPhotoName = (url: string, uid: string): string => {
   }
   return '';
 };
+
+
+export const pickImage = (state: string) => {
+  if(state === "New friends") {
+    return {
+      img : assets.wave,
+      color: "#2570a6",
+      backgroundColor: '#d0cdae7c'
+    };
+  }else if(state === "Long relationship") {
+    return {
+      img : assets.hearth,
+      color: "#c42bd2",
+      backgroundColor: 'rgb(59, 7, 84)'
+    };
+  }else if(state === "Something short") {
+    return {
+      img : assets.cheers,
+      color: "#ffdd03",
+      backgroundColor: '#461e08'
+    };
+  }else if(state === "Some fun") {
+    return {
+      img : assets.fire,
+      color: "#ffdd03",
+      backgroundColor: 'rgb(255,49,49)'
+    };
+  }else {
+    return {
+      img : assets.smiley,
+      color: "#678ba986",
+      backgroundColor: '#d0cdae7c'
+    };
+  }
+}
