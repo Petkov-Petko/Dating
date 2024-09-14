@@ -7,13 +7,16 @@
   background-image: url("../../assets/homeBg1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  gap: 20px;
 
   .publicHome_left {
     video {
-      width: 550px;
-      height: 550px;
+      width: 296px;
+      height: 526px;
       outline: none;
       pointer-events: none;
+      border-radius: 25px;
+      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
     }
     .no-controls::-webkit-media-controls {
       display: none !important;
