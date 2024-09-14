@@ -1,6 +1,6 @@
 # Dating App
 
-Welcome to the Dating App! This application allows users to create accounts, browse through other users, like or skip them, and chat in real-time if there's a mutual match. The app is fully responsive and optimized for mobile users.
+Welcome to the Flirty! This application allows users to create accounts, browse through other users, like or skip them, and chat in real-time if there's a mutual match. The app is fully responsive and optimized for mobile users.
 
 ## Features
 
