@@ -7,7 +7,8 @@
   border-radius: 15px;
   background-color: rgba(228, 224, 224, 0.345);
   align-items: center;
-  width: 700px;
+  width: fit-content;
+  padding: 20px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -19,21 +20,34 @@
       position: absolute;
       top: 10px;
       right: 11px;
+    
 
       button {
         border-radius: 15px;
-        background-color: #dbd9d9;
+        background-color: transparent;
         padding: 5px;
         cursor: pointer;
         border: none;
         margin-bottom: 7px;
         margin-left: 5px;
+        color: #000;
         i {
           padding-right: 3px;
         }
         &:hover {
           background-color: #918f8f;
+          @media screen and (max-width: 720px) {
+            background-color: transparent;
+          }
         }
+        @media screen and (max-width: 720px) {
+          padding: 0;
+          background-color: transparent;
+        }
+      }
+      @media screen and (max-width: 580px) {
+        top: 0px;
+        left: 17.5em;
       }
     }
 
@@ -77,17 +91,38 @@
     flex-direction: column;
     align-items: center;
     gap: 7px;
+    max-width: 500px;
 
     input,
     select,
     textarea {
-      padding: 5px;
-      border: 2px solid rgba(86, 86, 86, 0.591);
-      border-radius: 11px;
-      margin: 7px 0px;
+      font-size: 16px;
+      padding: 10px 10px 10px 5px;
+      width: 100px;
+      border: none;
+      border-bottom: 1px solid #515151;
+      background: transparent;
+      margin: 0px 3px;
+      color: #000;
+      outline: none;
+
+      @media screen and (max-width: 580px) {
+        width: 60px;   
+      }
+    }
+    textarea {
+      width: 370px;
+      resize: none;
+      @media screen and (max-width: 580px) {
+        width: 340px;   
+      }
     }
     .profile_details_title {
       opacity: 0.7;
+
+      input {
+        width: 350px;
+      }
     }
 
     .age {
@@ -133,19 +168,35 @@
         transform: translateY(-1px);
       }
     }
+    .select_looking {
+      select {
+        width: fit-content;
+      }
+    }
+    .profile_details_looking {
+      background-color: rgb(255, 49, 49);
+      color: #ffdd03;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 7px 17px;
+      border-radius: 15px;
+      font-size: 19px;
+      margin-top: 5px;
+      font-family: "Courier New", Courier, monospace;
+
+      img {
+        width: 37px;
+        height: 37px;
+      }
+    }
   }
   .profile_photos_container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 7px;
 
-    .hr {
-      width: 100%;
-      height: 2px;
-      background-color: rgba(107, 107, 107, 0.678);
-      margin-top: 10px;
-    }
     button {
       padding: 1.3em 3em;
       font-size: 12px;
@@ -172,10 +223,9 @@
       transform: translateY(-1px);
     }
     .profile_photos_filter {
-      display: flex;
-      gap: 15px;
-      cursor: pointer;
       p {
+        font-size: 21px;
+        font-weight: 600;
         transition: transform 0.3s ease, background-color 0.3s ease,
           border 0.3s ease;
 
@@ -186,7 +236,7 @@
       }
       .photos_length_span {
         background-color: rgb(107, 107, 107);
-        padding: 6px 10px;
+        padding: 6px 14px;
         border-radius: 50%;
         color: white;
         margin-left: 3px;
@@ -208,6 +258,14 @@
           height: 400px;
           border-radius: 15px;
           margin: 10px;
+          @media screen and (max-width: 720px) {
+            width: 200px;
+            height: 300px;
+          }
+          @media screen and (max-width: 580px) {
+            width: 150px;
+            height: 240px;
+          }
         }
         span {
           position: absolute;
@@ -221,5 +279,17 @@
         }
       }
     }
+  }
+  hr {
+    width: 100%;
+    height: 2px;
+    margin-top: 10px;
+    @media screen and (max-width: 580px) {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 580px) {
+    width: 350px;
   }
 }

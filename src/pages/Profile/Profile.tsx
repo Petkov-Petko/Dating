@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { getUser, likeUser, updateUserDetails } from "../../service/db-service";
 import { userDetails } from "../../types/types";
 import { useParams } from "react-router-dom";
-import { calculateAge, extractPhotoName } from "../../service/utils";
+import { calculateAge, extractPhotoName, pickImage } from "../../service/utils";
 import { assets } from "../../assets/assets";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
@@ -34,6 +34,8 @@ const Profile = () => {
     description: "",
     title: "",
     gender: "",
+    looking: "",
+    hight: 0,
   });
 
   const photoInputRef = useRef<HTMLInputElement>(null);
@@ -100,6 +102,8 @@ const Profile = () => {
         description: user?.description,
         title: user?.title,
         gender: user?.gender,
+        looking: user?.looking,
+        hight: user?.hight,
       });
       setProfilePhoto(user?.profilePhoto);
       setAllPhotos(user?.photos ?? []);
@@ -197,12 +201,23 @@ const Profile = () => {
                 if (editMode) {
                   setProfilePhoto(user?.profilePhoto ?? "");
                   setAllPhotos(user?.photos ?? []);
+                  setUserDetails({
+                    firstName: user?.firstName ?? "",
+                    lastName: user?.lastName ?? "",
+                    city: user?.city ?? "",
+                    country: user?.country ?? "",
+                    description: user?.description ?? "",
+                    title: user?.title ?? "",
+                    gender: user?.gender ?? "",
+                    looking: user?.looking ?? "",
+                    hight: user?.hight ?? 0,
+                  });
                 }
                 setEditMode(!editMode);
               }}
             >
               <i className="fa-solid fa-user-pen fa-lg"></i>
-              {editMode ? "Cancel" : "Edit profile"}
+              {editMode ? "Cancel" : ""}
             </button>
           )}
 
@@ -306,7 +321,25 @@ const Profile = () => {
               {userDetails.gender}
             </p>
           )}
+          {editMode ? (
+            <>
+              <input
+                value={userDetails.hight}
+                onChange={(e) =>
+                  setUserDetails({ ...userDetails, hight: Number(e.target.value) })
+                }
+                type="number"
+                placeholder="hight"
+              ></input>
+            </>
+          ) : (
+            <p>
+              <i className="fa-solid fa-ruler fa-lg"></i>
+              {userDetails.hight} cm
+            </p>
+          )}
         </div>
+        <hr />
         <p>
           {editMode ? (
             <textarea
@@ -319,6 +352,41 @@ const Profile = () => {
             userDetails.description
           )}
         </p>
+        <hr />
+        {editMode ? (
+          <div className="select_looking">
+            <select
+              value={userDetails.looking}
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, looking: e.target.value })
+              }
+            >
+              <option hidden>New friends</option>
+              <option value="New friends">New friends</option>
+              <option value="Long relationship">Long relationship</option>
+              <option value="Something short">Something short</option>
+              <option value="Some fun">Some fun</option>
+              <option value="Still don't know">Still don't know</option>
+            </select>
+          </div>
+        ) : (
+          <div
+            className="profile_details_looking"
+            style={{
+              color: pickImage(userDetails.looking).color,
+              backgroundColor: pickImage(userDetails.looking).backgroundColor,
+            }}
+          >
+            <div>
+              <img src={pickImage(userDetails.looking).img} alt="" />
+            </div>
+            <div>
+              <h5>Looking for</h5>
+              <h3>{userDetails.looking}</h3>
+            </div>
+          </div>
+        )}
+
         {uid !== id ? (
           isLiked ? (
             <button>User Liked</button>
@@ -327,6 +395,7 @@ const Profile = () => {
           )
         ) : null}
       </div>
+      <hr />
       <div className="profile_photos_container">
         <div className="profile_photos_filter">
           <p>
@@ -344,7 +413,7 @@ const Profile = () => {
           ref={allPhotosInputRef}
           onChange={handleAddPhotos}
         />
-        <hr className="hr" />
+
         <div className="profile_photos">
           {allPhotos.map((photo, index) => {
             return (
