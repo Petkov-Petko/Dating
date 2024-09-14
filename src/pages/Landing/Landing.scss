@@ -1,7 +1,11 @@
+@import "../../styles/variables.scss";
+
+
 .landing_page_container {
   padding: 20px 40px;
   display: flex;
   flex-direction: column;
+  height: 100vh;
 
   .landing_page_middle {
     margin-top: 5em;
