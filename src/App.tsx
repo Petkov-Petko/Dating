@@ -15,6 +15,7 @@ import Chat from "./pages/Messages/Messages";
 import Profile from "./pages/Profile/Profile";
 import MobileSideBar from "./pages/MobileSideBar/MobileSideBar";
 import Landing from "./pages/Landing/Landing";
+import { FAQs } from "./pages/FAQs/FAQs";
 
 function App() {
   const user = useSelector((state: RootState) => state.data.user.user);
@@ -99,6 +100,18 @@ function App() {
                   <SetUpAccount />
                 ) : (
                   <MobileSideBar />
+                )
+              }
+            />
+            <Route
+              path="/FAQs"
+              element={
+                !user ? (
+                  <PublicHome activeState="login" />
+                ) : !verified ? (
+                  <SetUpAccount />
+                ) : (
+                  <FAQs/>
                 )
               }
             />
