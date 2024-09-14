@@ -8,6 +8,9 @@
   .logo {
     width: 130px;
     cursor: pointer;
+    @media screen and (max-width: 400px) {
+      width: 100px;
+    }
   }
 
   .nav_bar_right {
@@ -16,7 +19,7 @@
     gap: 11px;
 
     img {
-      width: 65px;
+      width: 75px;
       height: 65px;
       border-radius: 50%;
       cursor: pointer;
@@ -40,6 +43,10 @@
       position: relative;
     }
   }
+
+  @media screen and (max-width: 390px) {
+    padding: 10px 10px;
+  }
 }
 .options_menu {
   .input {
@@ -54,8 +61,7 @@
     border-radius: 5px;
     z-index: 999;
 
-    .mobile_options{
-
+    .mobile_options {
       @media screen and (min-width: 780px) {
         display: none;
       }
