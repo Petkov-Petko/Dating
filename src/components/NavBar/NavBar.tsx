@@ -65,8 +65,14 @@ const NavBar = () => {
                 <i className="fa-solid fa-comment fa-lg"></i>Messages & Likes
               </button>
             </div>
-            <button onClick={() => navigate("/settings")} className="value">
-              <i className="fa-solid fa-gear fa-lg"></i>Settings
+            <button
+              onClick={() => navigate(`/profile/${user?.uid}`)}
+              className="value"
+            >
+              <i className="fa-solid fa-user fa-lg"></i>Profile
+            </button>
+            <button onClick={() => navigate("/FAQs")} className="value">
+              <i className="fa-solid fa-circle-question fa-lg"></i>FAQs
             </button>
             <button onClick={handleLogOut} className="value">
               <i className="fa-solid fa-right-from-bracket fa-lg"></i>
