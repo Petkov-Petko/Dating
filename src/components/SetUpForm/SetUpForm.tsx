@@ -185,6 +185,7 @@ const SetUpForm: React.FC<SetUpFormProps> = ({ onNext }) => {
                 <option value="New friends">New friends</option>
                 <option value="Long relationship">Long relationship</option>
                 <option value="Something short">Something short</option>
+                <option value="Some fun">Some fun</option>
                 <option value="Still don't know">Still don't know</option>
               </select>
             </div>
