@@ -10,7 +10,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { calculateAge, calculateTimeDifference } from "../../service/utils";
-import { message } from "../../types/types";
+import { Message } from "../../types/types";
+import { uploadChatImage } from "../../service/storage";
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -24,10 +25,11 @@ const Chat = () => {
     age: 0,
     id: "",
   });
-  const [allMessages, setAllMessages] = useState<message[]>([]);
+  const [allMessages, setAllMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState<string>("");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 770);
   const chatAreaRef = useRef<HTMLDivElement>(null);
+  const photoRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     listenForMessages(chatId, (messages) => {
@@ -68,10 +70,6 @@ const Chat = () => {
     }
   }, [allMessages]);
 
-  // useEffect(() => {
-
-  // }, []);
-
   const handleNavigation = () => {
     if (isMobile) {
       navigate("/mobile");
@@ -95,6 +93,24 @@ const Chat = () => {
     }
   };
 
+  const handleSendPhotoClick = () => {
+    if (photoRef.current) {
+      photoRef.current.click();
+    }
+  };
+
+  const sendPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const photoUrl = await uploadChatImage(chatId, e.target.files[0]);
+      await sendMessage(chatId, {
+        sender: uid,
+        text: "",
+        date: new Date().toISOString(),
+        photo: photoUrl,
+      });
+    }
+  };
+
   return (
     <div className="chat_container">
       <div className="chat_header">
@@ -108,7 +124,7 @@ const Chat = () => {
         <img
           onClick={() => navigate(`/profile/${otherUser.id}`)}
           src={otherUser.photo}
-          alt=""
+          alt="User profile photo"
         />
       </div>
       <div className="chat_area" ref={chatAreaRef}>
@@ -121,7 +137,11 @@ const Chat = () => {
           >
             {message.sender !== uid && <img src={otherUser.photo} alt="" />}
             <div>
-              <p>{message.text}</p>
+              {message.text !== "" ? (
+                              <p>{message.text}</p>
+              ) : (
+                <img id="chat_image" src={message.photo} alt="" />
+              )}
               <h4>{calculateTimeDifference(message.date)}</h4>
             </div>
           </div>
@@ -131,10 +151,10 @@ const Chat = () => {
         <div className="messageBox">
           <div className="fileUploadWrapper">
             <label htmlFor="file">
-              <i className="fa-solid fa-image fa-xl"></i>
+              <i onClick={handleSendPhotoClick} className="fa-solid fa-image fa-xl"></i>
               <span>Add an image</span>
             </label>
-            <input type="file" name="file" />
+            <input onChange={sendPhoto} ref={photoRef} type="file" name="file" />
           </div>
           <textarea
             required

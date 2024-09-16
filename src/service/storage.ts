@@ -84,3 +84,10 @@ export const getUserProfilePhoto = async (uid: string): Promise<string> => {
     throw error;
   }
 };
+
+export const uploadChatImage = async (chatId: string, file: File): Promise<string> => {
+  const imageNameRef = ref(storage, `chats/${chatId}/${file.name}`);
+  await uploadBytes(imageNameRef, file);
+  const url = await getDownloadURL(imageNameRef);
+  return url;
+};

@@ -11,7 +11,7 @@ import {
   push,
   onValue,
 } from "firebase/database";
-import { chat, message, userCredentials, userDetails } from "../types/types";
+import { chat, Message, userCredentials, userDetails } from "../types/types";
 
 /**
  * Creates a new user in the database.
@@ -189,7 +189,7 @@ export const getChat = async (chatId: string) => {
   }
 };
 
-export const sendMessage = async (chatId: string, message: { sender: string; text: string; date: string }) => {
+export const sendMessage = async (chatId: string, message: { sender: string; text: string; date: string, photo?: string }) => {
   try {
     const chatRef = ref(database, `chats/${chatId}/messages`);
     await push(chatRef, message);
@@ -198,7 +198,7 @@ export const sendMessage = async (chatId: string, message: { sender: string; tex
   }
 }
 
-export const listenForMessages = (chatId: string, callback: (messages: message) => void) => {
+export const listenForMessages = (chatId: string, callback: (messages: Message) => void) => {
   const chatRef = ref(database, `chats/${chatId}/messages`);
   onValue(chatRef, (snapshot) => {
     const messages = snapshot.val();
