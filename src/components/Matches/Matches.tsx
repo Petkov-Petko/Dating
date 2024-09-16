@@ -47,7 +47,7 @@ const Matches = () => {
             <img
               onClick={() => navigate(`/profile/${match.uid}`)}
               src={match.profilePhoto}
-              alt=""
+              alt="user profile"
             />
             <h4 onClick={() => navigate(`/profile/${match.uid}`)}>
               {match.firstName} {match.lastName}
