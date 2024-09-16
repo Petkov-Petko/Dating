@@ -194,39 +194,38 @@ const Profile = () => {
           )}
         </div>
         <div className="edit_profile">
-          {uid === id && (
-            <button
-              onClick={() => {
-                console.log(editMode);
-                if (editMode) {
-                  setProfilePhoto(user?.profilePhoto ?? "");
-                  setAllPhotos(user?.photos ?? []);
-                  setUserDetails({
-                    firstName: user?.firstName ?? "",
-                    lastName: user?.lastName ?? "",
-                    city: user?.city ?? "",
-                    country: user?.country ?? "",
-                    description: user?.description ?? "",
-                    title: user?.title ?? "",
-                    gender: user?.gender ?? "",
-                    looking: user?.looking ?? "",
-                    hight: user?.hight ?? 0,
-                  });
-                }
-                setEditMode(!editMode);
-              }}
-            >
-              <i className="fa-solid fa-user-pen fa-lg"></i>
-              {editMode ? "Cancel" : ""}
-            </button>
-          )}
-
-          {editMode && (
-            <button onClick={updateUser}>
-              <i className="fa-solid fa-save fa-lg"></i>
-              Save
-            </button>
-          )}
+          {uid === id &&
+            (editMode ? (
+              <div className="edit_profile_options">
+                <i
+                  onClick={() => {
+                    if (editMode) {
+                      setProfilePhoto(user?.profilePhoto ?? "");
+                      setAllPhotos(user?.photos ?? []);
+                      setUserDetails({
+                        firstName: user?.firstName ?? "",
+                        lastName: user?.lastName ?? "",
+                        city: user?.city ?? "",
+                        country: user?.country ?? "",
+                        description: user?.description ?? "",
+                        title: user?.title ?? "",
+                        gender: user?.gender ?? "",
+                        looking: user?.looking ?? "",
+                        hight: user?.hight ?? 0,
+                      });
+                      setEditMode(!editMode);
+                    }
+                  }}
+                  className="fa-solid fa-xmark fa-lg"
+                ></i>
+                <i onClick={updateUser} className="fa-solid fa-check fa-lg"></i>
+              </div>
+            ) : (
+              <i
+                onClick={() => setEditMode(!editMode)}
+                className="fa-solid fa-user-pen fa-lg"
+              ></i>
+            ))}
         </div>
       </div>
       <div className="profile_details">
@@ -326,7 +325,10 @@ const Profile = () => {
               <input
                 value={userDetails.hight}
                 onChange={(e) =>
-                  setUserDetails({ ...userDetails, hight: Number(e.target.value) })
+                  setUserDetails({
+                    ...userDetails,
+                    hight: Number(e.target.value),
+                  })
                 }
                 type="number"
                 placeholder="hight"

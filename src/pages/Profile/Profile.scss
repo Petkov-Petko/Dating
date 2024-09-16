@@ -20,33 +20,31 @@
       position: absolute;
       top: 10px;
       right: 11px;
-    
-
-      button {
-        border-radius: 15px;
-        background-color: transparent;
-        padding: 5px;
+      i {
+        font-size: 27px;
         cursor: pointer;
-        border: none;
-        margin-bottom: 7px;
-        margin-left: 5px;
-        color: #000;
-        i {
-          padding-right: 3px;
+
+        &.fa-check {
+          color: rgb(8, 198, 8);
         }
         &:hover {
-          background-color: #918f8f;
-          @media screen and (max-width: 720px) {
-            background-color: transparent;
-          }
-        }
-        @media screen and (max-width: 720px) {
-          padding: 0;
-          background-color: transparent;
+          opacity: 0.5;
         }
       }
+      .edit_profile_options {
+        display: flex;
+        gap: 15px;
+
+        @media screen and (max-width: 580px) {
+          flex-direction: column;
+          margin-left: 11px;
+          margin-top: 5px;
+          gap: 25px;
+        }
+      }
+
       @media screen and (max-width: 580px) {
-        top: 0px;
+        top: 7px;
         left: 17.5em;
       }
     }
@@ -107,14 +105,14 @@
       outline: none;
 
       @media screen and (max-width: 580px) {
-        width: 60px;   
+        width: 60px;
       }
     }
     textarea {
       width: 370px;
       resize: none;
       @media screen and (max-width: 580px) {
-        width: 340px;   
+        width: 340px;
       }
     }
     .profile_details_title {
