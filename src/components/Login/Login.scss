@@ -16,6 +16,9 @@
     font-size: 28px;
     font-weight: 800;
   }
+  #reset_msg{
+    color: green;
+  }
   .form {
     width: 100%;
     display: flex;
@@ -30,9 +33,6 @@
     box-sizing: border-box;
     padding: 12px 15px;
   }
-  // .error-message{
-  //   @include mixins.error-msg;
-  // }
   .page-link {
     text-decoration: underline;
     margin: 0;

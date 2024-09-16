@@ -2,11 +2,13 @@ import { googleSignIn, logIn } from "../../service/auth";
 import { checkIfUserExists, createUser } from "../../service/db-service";
 import "./Login.scss";
 import { useState } from "react";
+import { resetPassword } from "../../service/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [passwordResetMessage, setPasswordResetMessage] = useState(false);
 
   const handleLogIn = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -44,6 +46,27 @@ const Login = () => {
       console.log(error);
     }
   };
+  const handleResetPassword = async () => {
+    try {
+      if (email === "") {
+        setErrorMessage("Please enter your email address");
+        return;
+      }
+      const reset = await resetPassword(email);
+      if (reset === true) {
+        setPasswordResetMessage(true);
+        setErrorMessage("");
+      } else if (reset === "Firebase: Error (auth/invalid-email).") {
+        setErrorMessage("This email is not registered");
+        setPasswordResetMessage(false);
+      } else {
+        setErrorMessage("Could not send password reset email");
+        setPasswordResetMessage(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="form-container">
@@ -64,9 +87,14 @@ const Login = () => {
           value={password}
         />
         <p className="page-link">
-          <span className="page-link-label">Forgot Password?</span>
+          <span onClick={handleResetPassword} className="page-link-label">
+            Forgot Password?
+          </span>
         </p>
         {errorMessage !== "" && <p className="error_msg">{errorMessage}</p>}
+        {passwordResetMessage && (
+          <p id="reset_msg">Password reset email sent.</p>
+        )}
         <button onClick={handleLogIn} className="form-btn">
           Log in
         </button>

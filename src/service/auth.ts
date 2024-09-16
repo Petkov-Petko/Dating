@@ -7,6 +7,7 @@ import {
   deleteUser,
   signInWithPopup,
   updateProfile,
+  sendPasswordResetEmail
 } from "firebase/auth";
 import { auth } from "../config/firebase-config";
 
@@ -135,5 +136,28 @@ export const logOut = async () => {
     await signOut(auth);
   } catch (error) {
     console.log(error);
+  }
+};
+
+
+/**
+ * Resets the password for the user associated with the given email.
+ *
+ * @param email - The email address of the user who wants to reset their password.
+ * @returns A promise that resolves to `true` if the password reset email was sent successfully,
+ *          or an error message if there was an error.
+ *
+ * @throws Will log the error to the console if an error occurs during the password reset process.
+ */
+export const resetPassword = async (email: string) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    return true;
+  } catch (error) {
+    console.log(error);
+    if (error instanceof Error) {
+      return error.message;
+    }
+    return 'An unknown error occurred';
   }
 };
