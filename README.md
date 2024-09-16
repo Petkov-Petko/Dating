@@ -16,7 +16,7 @@ Welcome to the Flirty! This application allows users to create accounts, browse 
 - **React**: For building the user interface.
 - **Firebase**: For data storing.
 - **Redux**: For state management.
-- **SASS**: For styling the application.
+- **SCSS**: For styling the application.
 
 ## Getting Started
 
