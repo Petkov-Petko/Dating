@@ -11,6 +11,22 @@ import {
 import { auth } from "../config/firebase-config";
 
 /**
+ * Retrieves the appropriate Auth0 client ID based on the user's device.
+ * 
+ * @returns {string | undefined} The Auth0 client ID for mobile or desktop.
+ * 
+ * - If the user is on an iPhone, it returns the mobile client ID (`REACT_APP_AUTH0_MOBILE_CLIENT_ID`).
+ * - Otherwise, it returns the desktop client ID (`REACT_APP_AUTH0_CLIENT_ID`).
+ */
+const getClientId = () => {
+  if (navigator.userAgent.match(/iPhone/i)) {
+    return process.env.REACT_APP_AUTH0_MOBILE_CLIENT_ID; // Google SSO is disabled
+  } else {
+    return process.env.REACT_APP_AUTH0_CLIENT_ID; // Google SSO is enabled
+  }
+};
+
+/**
  * Sign up a user with the provided email address, password, and display name.
  *
  * @param emailAddress - The email address of the user.
@@ -51,6 +67,9 @@ export const signUp = async (
 export const googleSignIn = async () => {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({
+    client_id: getClientId() || '',
+  });
 
   try {
     const result = await signInWithPopup(auth, provider);
