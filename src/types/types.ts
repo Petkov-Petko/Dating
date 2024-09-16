@@ -32,17 +32,12 @@ export interface chat {
   id: string;
   createdAt: string;
   participants: string[];
-  messages?: [
-    {
-      sender: string;
-      text: string;
-      date: string;
-    }
-  ];
+  messages?: Message[]
 }
 
-export interface message {
+export interface Message {
   sender: string;
   text: string;
   date: string;
+  photo?: string;
 }
