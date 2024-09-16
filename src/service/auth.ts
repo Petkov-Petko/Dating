@@ -20,9 +20,9 @@ import { auth } from "../config/firebase-config";
  */
 const getClientId = () => {
   if (navigator.userAgent.match(/iPhone/i)) {
-    return process.env.REACT_APP_AUTH0_MOBILE_CLIENT_ID; // Google SSO is disabled
+    return import.meta.env.REACT_APP_AUTH0_MOBILE_CLIENT_ID; // Google SSO is disabled
   } else {
-    return process.env.REACT_APP_AUTH0_CLIENT_ID; // Google SSO is enabled
+    return import.meta.env.REACT_APP_AUTH0_CLIENT_ID; // Google SSO is enabled
   }
 };
 
