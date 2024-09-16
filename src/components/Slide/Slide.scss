@@ -17,6 +17,43 @@
     background-color: rgb(54, 54, 54);
     margin: 0 auto;
     border-radius: 15px;
+    width: 420px;
+
+    .slide_msg {
+      font-size: 2em;
+      position: absolute;
+      border-radius: 15px;
+      padding: 20px;
+      font-weight: 700;
+
+      &.skip_msg {
+        border: 5px solid rgba(255, 0, 0, 0.842);
+        top: 7%;
+        right: 7%;
+        transform: rotate(10deg);
+        color: rgba(255, 0, 0, 0.797);
+      }
+      &.like_msg {
+        border: 5px solid rgba(251, 2, 255, 0.842);
+        top: 8%;
+        right: 63%;
+        transform: rotate(340deg);
+        color: rgba(251, 2, 255, 0.842);
+      }
+    }
+
+    .like_msg {
+      font-size: 2em;
+      position: absolute;
+      font-weight: 700;
+      padding: 20px;
+      border: 5px solid rgba(255, 0, 0, 0.842);
+      border-radius: 15px;
+      top: 7%;
+      right: 60%;
+      transform: rotate(340deg);
+      color: rgba(255, 0, 0, 0.797);
+    }
 
     .blur {
       position: absolute;
@@ -43,7 +80,7 @@
           rgba(0, 0, 0, 1) 54%,
           rgba(0, 0, 0, 0.719) 71%,
           rgba(0, 0, 0, 0.09) 81%,
-          rgba(0, 0, 0, 0.015) 86%,       
+          rgba(0, 0, 0, 0.015) 86%
         );
       }
     }

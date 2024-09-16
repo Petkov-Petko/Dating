@@ -9,7 +9,7 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { userDetails } from "../../types/types";
-import { calculateAge} from "../../service/utils";
+import { calculateAge } from "../../service/utils";
 import Loading from "../Loading/Loading";
 import PhotoIndicator from "../PhotoIndicator/PhotoIndicator";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,9 @@ const Slide = () => {
   const [age, setAge] = useState(0);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [likeOrSkipIcon, setLikeOrSkipIcon] = useState<string>("");
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const nextPhoto = () => {
     setLoading(true);
@@ -47,6 +50,7 @@ const Slide = () => {
     otherUserId: string,
     state: boolean
   ) => {
+    setLikeOrSkipIcon(state ? "like" : "skip");
     if (state) {
       const date = new Date().toISOString();
       await likeUser(userId, otherUserId, date);
@@ -67,6 +71,8 @@ const Slide = () => {
       setAge(
         nextRandomUser.birthDate ? calculateAge(nextRandomUser.birthDate) : 0
       );
+      await delay(500);
+      setLikeOrSkipIcon("");
     } else {
       setUserToShow(null);
       setUserToShowPhotos([]);
@@ -87,7 +93,7 @@ const Slide = () => {
         const filteredUsers = users.filter(
           (user) => !likedUsers.includes(user.uid)
         );
-        
+
         const maleUsers = filteredUsers.filter(
           (user) => user.gender === "male"
         );
@@ -120,7 +126,11 @@ const Slide = () => {
   if (!userToShow) {
     return (
       <div className="noMoreUsers">
-        <h1>No more users at the moment!<br />Please come later!</h1>   
+        <h1>
+          No more users at the moment!
+          <br />
+          Please come later!
+        </h1>
       </div>
     );
   }
@@ -132,6 +142,12 @@ const Slide = () => {
           totalPhotos={userToShowPhotos.length}
           currentIndex={photoIndex}
         />
+        {likeOrSkipIcon === "like" && (
+          <p className="slide_msg like_msg">Like</p>
+        )}
+        {likeOrSkipIcon === "skip" && (
+          <p className="slide_msg skip_msg">No</p>
+        )}
         {loading ? (
           <Loading />
         ) : (
@@ -151,7 +167,9 @@ const Slide = () => {
         </div>
         <div className="slide_content">
           <div className="slide_top">
-            <h1 onClick={()=>navigate(`/profile/${userToShow.uid}`)}>{userToShow?.firstName}</h1>
+            <h1 onClick={() => navigate(`/profile/${userToShow.uid}`)}>
+              {userToShow?.firstName}
+            </h1>
             <p>{age}</p>
           </div>
           <div className="slide_middle">
