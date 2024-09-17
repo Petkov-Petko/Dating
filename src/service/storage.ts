@@ -85,6 +85,13 @@ export const getUserProfilePhoto = async (uid: string): Promise<string> => {
   }
 };
 
+/**
+ * Uploads an image file to the specified chat's storage and returns the download URL.
+ *
+ * @param chatId - The unique identifier of the chat.
+ * @param file - The image file to be uploaded.
+ * @returns A promise that resolves to the download URL of the uploaded image.
+ */
 export const uploadChatImage = async (chatId: string, file: File): Promise<string> => {
   const imageNameRef = ref(storage, `chats/${chatId}/${file.name}`);
   await uploadBytes(imageNameRef, file);
